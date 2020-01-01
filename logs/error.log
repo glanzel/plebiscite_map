@@ -117,3 +117,145 @@ Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 140
 2019-12-31 15:43:57 Warning: DebugKit not enabled. You need to either install pdo_sqlite, or define the "debug_kit" connection name.
 2019-12-31 15:44:01 Warning: DebugKit not enabled. You need to either install pdo_sqlite, or define the "debug_kit" connection name.
 2019-12-31 15:44:03 Warning: DebugKit not enabled. You need to either install pdo_sqlite, or define the "debug_kit" connection name.
+2020-01-01 23:06:33 Warning: DebugKit not enabled. You need to either install pdo_sqlite, or define the "debug_kit" connection name.
+2020-01-01 23:06:33 Error: [Cake\Controller\Exception\MissingActionException] Action PointsController::add() could not be found, or is not accessible. (/var/www/html/dwe_map/vendor/cakephp/cakephp/src/Controller/Controller.php:599)
+Exception Attributes: array (
+  'controller' => 'PointsController',
+  'action' => 'add',
+  'prefix' => '',
+  'plugin' => false,
+)
+#0 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/ActionDispatcher.php(120): Cake\Controller\Controller->invokeAction()
+#1 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/ActionDispatcher.php(94): Cake\Http\ActionDispatcher->_invoke(Object(App\Controller\PointsController))
+#2 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/BaseApplication.php(234): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#3 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#4 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Runner.php(65): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#5 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php(124): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#6 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#7 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#8 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php(168): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#9 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#10 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php(88): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#11 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#12 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php(96): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#13 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#14 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#15 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Server.php(97): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#16 /var/www/html/dwe_map/webroot/index.php(40): Cake\Http\Server->run()
+#17 {main}
+Request URL: /Points/add
+
+
+2020-01-01 23:06:36 Warning: DebugKit not enabled. You need to either install pdo_sqlite, or define the "debug_kit" connection name.
+2020-01-01 23:10:39 Warning: DebugKit not enabled. You need to either install pdo_sqlite, or define the "debug_kit" connection name.
+2020-01-01 23:11:24 Warning: DebugKit not enabled. You need to either install pdo_sqlite, or define the "debug_kit" connection name.
+2020-01-01 23:11:24 Error: [Error] Call to a member function allow() on boolean (/var/www/html/dwe_map/src/Controller/PointsController.php:16)
+#0 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Event/EventManager.php(352): App\Controller\PointsController->beforeFilter(Object(Cake\Event\Event))
+#1 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Event/EventManager.php(329): Cake\Event\EventManager->_callListener(Array, Object(Cake\Event\Event))
+#2 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Event/EventDispatcherTrait.php(113): Cake\Event\EventManager->dispatch(Object(Cake\Event\Event))
+#3 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Controller/Controller.php(676): Cake\Controller\Controller->dispatchEvent('Controller.init...')
+#4 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/ActionDispatcher.php(115): Cake\Controller\Controller->startupProcess()
+#5 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/ActionDispatcher.php(94): Cake\Http\ActionDispatcher->_invoke(Object(App\Controller\PointsController))
+#6 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/BaseApplication.php(234): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#7 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#8 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Runner.php(65): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#9 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php(124): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#10 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#11 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#12 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php(168): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#13 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#14 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php(88): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#15 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#16 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php(96): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#17 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#18 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#19 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Server.php(97): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#20 /var/www/html/dwe_map/webroot/index.php(40): Cake\Http\Server->run()
+#21 {main}
+Request URL: /Points/
+
+
+2020-01-01 23:11:24 Warning: Warning (512): Unable to emit headers. Headers sent in file=/var/www/html/dwe_map/vendor/cakephp/cakephp/src/Error/Debugger.php line=856 in [/var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 51]
+Request URL: /Points/
+Client IP: 127.0.0.1
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 158
+Cake\Core\BasePlugin::{closure}() - ROOT/vendor/cakephp/debug_kit/config/bootstrap.php, line 42
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 51
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 140
+[main] - ROOT/webroot/index.php, line 40
+
+
+
+2020-01-01 23:11:24 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Error/Debugger.php:856) in [/var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 152]
+Request URL: /Points/
+Client IP: 127.0.0.1
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 158
+Cake\Core\BasePlugin::{closure}() - ROOT/vendor/cakephp/debug_kit/config/bootstrap.php, line 42
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE/src/Http/ResponseEmitter.php, line 152
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 57
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 140
+[main] - ROOT/webroot/index.php, line 40
+
+
+
+2020-01-01 23:11:24 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Error/Debugger.php:856) in [/var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/ResponseEmitter.php, line 185]
+Request URL: /Points/
+Client IP: 127.0.0.1
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE/src/Error/BaseErrorHandler.php, line 158
+Cake\Core\BasePlugin::{closure}() - ROOT/vendor/cakephp/debug_kit/config/bootstrap.php, line 42
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE/src/Http/ResponseEmitter.php, line 185
+Cake\Http\ResponseEmitter::emit() - CORE/src/Http/ResponseEmitter.php, line 58
+Cake\Http\Server::emit() - CORE/src/Http/Server.php, line 140
+[main] - ROOT/webroot/index.php, line 40
+
+
+
+2020-01-01 23:11:48 Warning: DebugKit not enabled. You need to either install pdo_sqlite, or define the "debug_kit" connection name.
+2020-01-01 23:13:26 Warning: DebugKit not enabled. You need to either install pdo_sqlite, or define the "debug_kit" connection name.
+2020-01-01 23:13:36 Warning: DebugKit not enabled. You need to either install pdo_sqlite, or define the "debug_kit" connection name.
+2020-01-01 23:16:12 Warning: DebugKit not enabled. You need to either install pdo_sqlite, or define the "debug_kit" connection name.
+2020-01-01 23:19:57 Warning: DebugKit not enabled. You need to either install pdo_sqlite, or define the "debug_kit" connection name.
+2020-01-01 23:19:57 Error: [PDOException] SQLSTATE[HY000]: General error: 1364 Field 'Laengengrad' doesn't have a default value (/var/www/html/dwe_map/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php:38)
+#0 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php(38): PDOStatement->execute(NULL)
+#1 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Database/Connection.php(333): Cake\Database\Statement\MysqlStatement->execute()
+#2 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php(67): Cake\Database\Connection->Cake\Database\{closure}()
+#3 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Database/Connection.php(336): Cake\Core\Retry\CommandRetry->run(Object(Closure))
+#4 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Database/Query.php(218): Cake\Database\Connection->run(Object(Cake\ORM\Query))
+#5 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/ORM/Table.php(2129): Cake\Database\Query->execute()
+#6 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/ORM/Table.php(2021): Cake\ORM\Table->_insert(Object(Cake\ORM\Entity), Array)
+#7 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/ORM/Table.php(1934): Cake\ORM\Table->_processSave(Object(Cake\ORM\Entity), Object(ArrayObject))
+#8 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/ORM/Table.php(1639): Cake\ORM\Table->Cake\ORM\{closure}()
+#9 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Database/Connection.php(737): Cake\ORM\Table->Cake\ORM\{closure}(Object(Cake\Database\Connection))
+#10 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/ORM/Table.php(1640): Cake\Database\Connection->transactional(Object(Closure))
+#11 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/ORM/Table.php(1935): Cake\ORM\Table->_executeTransaction(Object(Closure), true)
+#12 /var/www/html/dwe_map/src/Controller/PointsController.php(80): Cake\ORM\Table->save(Object(Cake\ORM\Entity))
+#13 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Controller/Controller.php(609): App\Controller\PointsController->add()
+#14 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/ActionDispatcher.php(120): Cake\Controller\Controller->invokeAction()
+#15 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/ActionDispatcher.php(94): Cake\Http\ActionDispatcher->_invoke(Object(App\Controller\PointsController))
+#16 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/BaseApplication.php(234): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#17 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#18 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Runner.php(65): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#19 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Middleware/CsrfProtectionMiddleware.php(124): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#20 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#21 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#22 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Routing/Middleware/RoutingMiddleware.php(168): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#23 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#24 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Routing/Middleware/AssetMiddleware.php(88): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#25 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#26 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Error/Middleware/ErrorHandlerMiddleware.php(96): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#27 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#28 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#29 /var/www/html/dwe_map/vendor/cakephp/cakephp/src/Http/Server.php(97): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#30 /var/www/html/dwe_map/webroot/index.php(40): Cake\Http\Server->run()
+#31 {main}
+Request URL: /Points/add
+Referer URL: http://localhost/dwe_map/Points/add
+
+
+2020-01-01 23:21:03 Warning: DebugKit not enabled. You need to either install pdo_sqlite, or define the "debug_kit" connection name.
+2020-01-01 23:21:03 Warning: DebugKit not enabled. You need to either install pdo_sqlite, or define the "debug_kit" connection name.
