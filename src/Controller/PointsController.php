@@ -76,15 +76,61 @@ class PointsController extends AppController
     {
         $point = $this->Points->newEntity();
         if ($this->request->is('post')) {
+            //TODO: gocoding
+            $queryString = $this->request->getData()['Strasse'].".".$this->request->getData()['Nr'].", ".$this->request->getData()['PLZ']." ".$this->request->getData()['Stadt'];
+            debug($queryString);
+            $queryString = urlencode($queryString);
+            
+            $urlString = "https://nominatim.openstreetmap.org/search?q=".$queryString."&format=geocodejson";
+            debug($urlString);
+            $opts = array(
+                'http'=>array(
+                    'header'=>array("Referer: $urlString\r\n")
+                )
+            );
+            $context = stream_context_create($opts);
+            $content = file_get_contents($urlString, false, $context);
+            $geoObj =  json_decode($content);
+            //debug($geoObj);
+            $breite = $geoObj->features[0]->geometry->coordinates[0];
+            $laenge = $geoObj->features[0]->geometry->coordinates[1];
+            
+            //debug("$breite , $laenge");
+            
             $point = $this->Points->patchEntity($point, $this->request->getData());
+
+            $point->Breitengrad = $breite;
+            $point->Laengengrad = $laenge;
+            
             if ($this->Points->save($point)) {
                 $this->Flash->success(__('The point has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
+            
             $this->Flash->error(__('The point could not be saved. Please, try again.'));
         }
         $this->set(compact('point'));
+    }
+    
+    public function test(){
+        
+        $urlString = "http://nominatim.openstreetmap.org";
+        $adress = "Flughafenstr.38, 12053 Berlin";
+        $queryString = urlencode($adress);
+        $urlString = "https://nominatim.openstreetmap.org/search?q=".$queryString."&format=geocodejson";
+        debug($urlString);
+        
+        $opts = array(
+            'http'=>array(
+                'header'=>array("Referer: $urlString\r\n")
+            )
+        );
+        $context = stream_context_create($opts);
+        $content = file_get_contents($urlString, false, $context);
+        
+        
+        debug($content);
     }
 
     /**
