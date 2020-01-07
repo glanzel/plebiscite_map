@@ -105,7 +105,7 @@ class PointsController extends AppController
             if ($this->Points->save($point)) {
                 $this->Flash->success(__('The point has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view', $point->id]);
             }
             
             $this->Flash->error(__('The point could not be saved. Please, try again.'));
