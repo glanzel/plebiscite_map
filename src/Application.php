@@ -63,10 +63,6 @@ class Application extends BaseApplication
      */
     public function middleware($middlewareQueue)
     {
-        $options = [
-            // ...
-        ];
-        $csrf = new CsrfProtectionMiddleware($options);
         
         $middlewareQueue
             // Catch any exceptions in the lower layers,
@@ -86,7 +82,6 @@ class Application extends BaseApplication
             // `new RoutingMiddleware($this, '_cake_routes_')`
             ->add(new RoutingMiddleware($this));
             
-       //$middlewareQueue->add($csrf);
             
         return $middlewareQueue;
     }
