@@ -31,6 +31,7 @@ use Cake\Http\Middleware\CsrfProtectionMiddleware;
  */
 class Application extends BaseApplication
 {
+    
     /**
      * {@inheritDoc}
      */
@@ -62,7 +63,6 @@ class Application extends BaseApplication
      */
     public function middleware($middlewareQueue)
     {
-        
         $options = [
             // ...
         ];
@@ -86,7 +86,7 @@ class Application extends BaseApplication
             // `new RoutingMiddleware($this, '_cake_routes_')`
             ->add(new RoutingMiddleware($this));
             
-       $middlewareQueue->add($csrf);
+       //$middlewareQueue->add($csrf);
             
         return $middlewareQueue;
     }
