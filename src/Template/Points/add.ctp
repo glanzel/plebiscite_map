@@ -9,6 +9,8 @@
     <fieldset>
         <legend><?= __('Erstelle Sammelstelle') ?></legend>
         <?php
+            echo $this->Form->control('Name', ['label' => 'Name/Ort']);
+            echo $this->Form->control('Beschreibung', ['placeholder'=>'z.b. Öffnungszeiten']);
             echo $this->Form->control('Strasse');
             echo $this->Form->control('Nr');
             echo $this->Form->control('PLZ');
