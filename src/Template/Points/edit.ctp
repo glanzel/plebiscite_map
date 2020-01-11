@@ -21,12 +21,15 @@
     <fieldset>
         <legend><?= __('Edit Point') ?></legend>
         <?php
+            echo $this->Form->control('Name',  ['label' => 'Name/Ort']);
+            echo $this->Form->control('Beschreibung');
             echo $this->Form->control('Strasse');
             echo $this->Form->control('Nr');
             echo $this->Form->control('PLZ');
             echo $this->Form->control('Stadt');
-            echo $this->Form->control('Laengengrad');
-            echo $this->Form->control('Breitengrad');
+            //Längen- und Breitengrad müssten, m.E., nicht mit ausgegeben werden.
+            //echo $this->Form->control('Laengengrad');
+            //echo $this->Form->control('Breitengrad');
             echo $this->Form->control('Kategorie');
         ?>
     </fieldset>

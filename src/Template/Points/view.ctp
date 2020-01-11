@@ -21,6 +21,14 @@
             <td><?= h($point->id) ?></td>
         </tr>
         <tr>
+            <th scope="row"><?= __('Name') ?></th>
+            <td><?= h($point->Name) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Beschreibung') ?></th>
+            <td><?= h($point->Beschreibung) ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('Strasse') ?></th>
             <td><?= h($point->Strasse) ?></td>
         </tr>
@@ -40,6 +48,7 @@
             <th scope="row"><?= __('PLZ') ?></th>
             <td><?= $this->Number->format($point->PLZ) ?></td>
         </tr>
+        <!--Längen- und Breitengrad wichtig für Benutzer_innen? -->
         <tr>
             <th scope="row"><?= __('Laengengrad') ?></th>
             <td><?= $this->Number->format($point->Laengengrad) ?></td>
