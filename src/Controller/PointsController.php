@@ -20,6 +20,7 @@ class PointsController extends AppController
      *
      * @return \Cake\Http\Response|null
      */
+ 
     public function index($kategorie=null){
 
         $points=$this->Points->find();
