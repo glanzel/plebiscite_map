@@ -20,7 +20,7 @@ class PointsController extends AppController
      *
      * @return \Cake\Http\Response|null
      */
- 
+
     public function index($kategorie=null){
 
         $points=$this->Points->find();
@@ -40,7 +40,7 @@ class PointsController extends AppController
             $jsonpoint['properties']['PLZ']=$point->PLZ;
             $jsonpoint['properties']['adress']=$point->Stadt;
             //String, der an "Description" weitergegeben werden soll (Adressdaten fett, Beshreibung kursiv)
-            $descritionstring='**'.$point->Strasse.' '.$point->Nr.', '.$point->PLZ.' '.$point->Stadt.'**'.' *'.$point->Beschreibung.'*';
+            $descritionstring='**'.$point->Strasse.' '.$point->Nr.', '.$point->PLZ.' '.$point->Stadt.'**'.'\n'.'*'.$point->Beschreibung.'*';
             $jsonpoint['properties']['description'] = $descritionstring;
             $jsonpoint['geometry']=[];
 
