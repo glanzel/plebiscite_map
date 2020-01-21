@@ -96,8 +96,7 @@ class PointsController extends AppController
     {
         $point = $this->Points->newEntity();
         if ($this->request->is('post')) {
-            //TODO: gocoding
-            debug( $this->request->getData());
+            //debug( $this->request->getData());
             $queryString = $this->request->getData()['Strasse'].".".$this->request->getData()['Nr'].", ".$this->request->getData()['PLZ']." ".$this->request->getData()['Stadt'];
             $coordinates =$this->Points->geocoding($queryString);
             if ($coordinates==null){
@@ -108,7 +107,7 @@ class PointsController extends AppController
             //debug("$breite , $laenge");
 
             $point = $this->Points->patchEntity($point, $this->request->getData());
-            debug($point);
+           //debug($point);
 
             /* $point->Breitengrad = $breite;
             $point->Laengengrad = $laenge; */
@@ -135,16 +134,16 @@ class PointsController extends AppController
         $point->PLZ=5;
         $point->Stadt="bln";
         $point->Name=$name;
-        debug($point);
+        //debug($point);
         $this->Points->save($point);
         
-        debug($this->Points->get($point->id));
+        //debug($this->Points->get($point->id));
         
         //return $this->redirect(['action' => 'testView', $point->id]);
     }
 
     public function testView($id){
-        debug($this->Points->get($id));
+        //debug($this->Points->get($id));
     }
 
     public function test(){
