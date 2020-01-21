@@ -38,7 +38,7 @@ class PointsTable extends Table
     }
     
     protected function _initializeSchema(\Cake\Database\Schema\TableSchema $schema){
-        $schema->columnType('details', 'json');
+        $schema->columnType('Details', 'json');
         return $schema;
     }
 

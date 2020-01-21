@@ -109,6 +109,18 @@ class PointsController extends AppController
         $this->set(compact('point'));
     }
 
+    public function testadd($name='test'){
+        $point = $this->Points->newEntity(['Details'=>['a'=>'b']]);
+        //$point->Details['Oeffnungszeiten']='15';
+        $point->Name=$name;
+        $this->Points->save($point);
+        return $this->redirect(['action' => 'testView', $point->id]);
+    }
+
+    public function testView($id){
+        debug($this->Points->get($id));
+    }
+
     public function test(){
 
         $urlString = "http://nominatim.openstreetmap.org";
