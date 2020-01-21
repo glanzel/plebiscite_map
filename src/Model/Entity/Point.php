@@ -28,6 +28,7 @@ class Point extends Entity
      *
      * @var array
      */
+/* SCHLECHT
     protected $_accessible = [
         'Name' => true,
         'Strasse' => true,
@@ -39,4 +40,5 @@ class Point extends Entity
         'Breitengrad' => true,
         'Kategorie' => true,
     ];
+ */
 }

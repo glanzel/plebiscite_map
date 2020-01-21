@@ -97,7 +97,7 @@ class PointsController extends AppController
         $point = $this->Points->newEntity();
         if ($this->request->is('post')) {
             //TODO: gocoding
-            debug( $this->request->getData());
+            //debug( $this->request->getData());
             $queryString = $this->request->getData()['Strasse'].".".$this->request->getData()['Nr'].", ".$this->request->getData()['PLZ']." ".$this->request->getData()['Stadt'];
             $coordinates =$this->Points->geocoding($queryString);
             if ($coordinates==null){
@@ -116,7 +116,7 @@ class PointsController extends AppController
             if ($this->Points->save($point)) {
                 $this->Flash->success(__('The point has been saved.'));
 
-                //return $this->redirect(['action' => 'view', $point->id]);
+                return $this->redirect(['action' => 'view', $point->id]);
             }
 
             $this->Flash->error(__('The point could not be saved. Please, try again.'));
@@ -127,9 +127,13 @@ class PointsController extends AppController
 
     public function testadd($name='test'){
         $point = $this->Points->newEntity();
+        debug($point); 
         $point = $this->Points->patchEntity($point, ["Details" => ["hallo" => "du"]]);
-        $point->Details = [];
+        $details = $point->Details;
+        debug($details);
         $point->Details["ahah"] = "bee";
+        $point->Details["huhuhu"] = "cool";
+        
         $point->Strasse=$name;        
         $point->Nr=5;
         $point->PLZ=5;
