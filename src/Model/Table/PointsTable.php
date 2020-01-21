@@ -36,6 +36,11 @@ class PointsTable extends Table
         $this->setPrimaryKey('id');
         
     }
+    
+    protected function _initializeSchema(\Cake\Database\Schema\TableSchema $schema){
+        $schema->columnType('details', 'json');
+        return $schema;
+    }
 
     public function geocoding($queryString){
 
