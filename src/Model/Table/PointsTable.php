@@ -44,16 +44,7 @@ class PointsTable extends Table
         return $schema;
     }
 
-    function save(EntityInterface $entity, $options=Array()){
-
-        $entity->Details=json_encode($entity->Details);
-        
-        $entity=parent::save($entity, $options);
-
-        return $entity;
-    }
-
-    public function geocoding($queryString){
+     public function geocoding($queryString){
 
         debug($queryString);
             $queryString = urlencode($queryString);

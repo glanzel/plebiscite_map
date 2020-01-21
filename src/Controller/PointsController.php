@@ -112,8 +112,8 @@ class PointsController extends AppController
     public function testadd($name='test'){
         $point = $this->Points->newEntity();
         $point = $this->Points->patchEntity($point, ["Details" => ["hallo" => "du"]]);
-        
-        $point->Details_intern='{"y":"z"}';
+        $point->Details = [];
+        $point->Details["ahah"] = "bee";
         $point->Strasse=$name;        
         $point->Nr=5;
         $point->PLZ=5;
@@ -121,7 +121,10 @@ class PointsController extends AppController
         $point->Name=$name;
         debug($point);
         $this->Points->save($point);
-        return $this->redirect(['action' => 'testView', $point->id]);
+        
+        debug($this->Points->get($point->id));
+        
+        //return $this->redirect(['action' => 'testView', $point->id]);
     }
 
     public function testView($id){
