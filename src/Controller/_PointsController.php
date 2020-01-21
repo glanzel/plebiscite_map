@@ -21,9 +21,9 @@ class PointsController extends AppController
      * @return \Cake\Http\Response|null
      */
 
-    public function index($kategorie=null){
+    public function umapJson($kategorie=null){
 
-        $points=$this->Points->find();
+        $points=$this->Points->find()->where(['active' => '1']);       
 
         $jsonpoints=[];
         $jsonpoints['type']='FeatureCollection';
@@ -56,6 +56,14 @@ class PointsController extends AppController
         $this->set('_serialize', true);
     }
 
+    public function setActive($id)
+    {
+        $point=$this->Points->get($id);
+        $point->active='1';
+        $this->Points->save($point);
+        $this->redirect('action' => 'index');
+    }
+
     /**
      * View method
      *
@@ -82,7 +90,7 @@ class PointsController extends AppController
         $point = $this->Points->newEntity();
         if ($this->request->is('post')) {
             //TODO: gocoding
-            debug($this->Points);
+            debug( $this->request->getData());
             $queryString = $this->request->getData()['Strasse'].".".$this->request->getData()['Nr'].", ".$this->request->getData()['PLZ']." ".$this->request->getData()['Stadt'];
             $coordinates =$this->Points->geocoding($queryString);
             if ($coordinates==null){
@@ -93,6 +101,7 @@ class PointsController extends AppController
             //debug("$breite , $laenge");
 
             $point = $this->Points->patchEntity($point, $this->request->getData());
+            debug($point);
 
             /* $point->Breitengrad = $breite;
             $point->Laengengrad = $laenge; */
@@ -100,7 +109,7 @@ class PointsController extends AppController
             if ($this->Points->save($point)) {
                 $this->Flash->success(__('The point has been saved.'));
 
-                return $this->redirect(['action' => 'view', $point->id]);
+                //return $this->redirect(['action' => 'view', $point->id]);
             }
 
             $this->Flash->error(__('The point could not be saved. Please, try again.'));

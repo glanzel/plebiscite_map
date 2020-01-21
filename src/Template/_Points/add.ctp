@@ -15,6 +15,7 @@
             echo $this->Form->control('Nr');
             echo $this->Form->control('PLZ');
             echo $this->Form->control('Stadt');
+            echo $this->Form->control('Details.Öffnungszeiten');
             //echo $this->Form->control('Laengengrad');
             //echo $this->Form->control('Breitengrad');
             //echo $this->Form->control('Kategorie');

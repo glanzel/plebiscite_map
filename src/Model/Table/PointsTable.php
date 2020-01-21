@@ -77,7 +77,7 @@ class PointsTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
+   /*  public function validationDefault(Validator $validator)
     {
         $validator
             ->uuid('id')
@@ -129,5 +129,5 @@ class PointsTable extends Table
             ->allowEmptyString('Kategorie');
 
         return $validator;
-    }
+    } */
 }
