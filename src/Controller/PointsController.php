@@ -87,9 +87,8 @@ class PointsController extends AppController
             $coordinates =$this->Points->geocoding($queryString);
             if ($coordinates==null){
                 $this->Flash->error(__('Adresse konnte nicht gefunden werden. Sammelpunkt wurde nicht gespeichert.'));
-                return;
-            }
-            
+                       }
+            else{
             list ($point->Breitengrad, $point->Laengengrad)=$coordinates;
             //debug("$breite , $laenge");
 
@@ -105,6 +104,7 @@ class PointsController extends AppController
             }
 
             $this->Flash->error(__('The point could not be saved. Please, try again.'));
+        }
         }
         $this->set(compact('point'));
     }
