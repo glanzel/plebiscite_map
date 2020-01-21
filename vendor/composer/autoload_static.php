@@ -24,6 +24,7 @@ class ComposerStaticInit5f955dd819abd197648a1f4e19fe19d1
         '90236b492da7ca2983a2ad6e33e4152e' => __DIR__ . '/..' . '/cakephp/cakephp/src/I18n/functions.php',
         'b1fc73705e1bec51cd2b20a32cf1c60a' => __DIR__ . '/..' . '/cakephp/cakephp/src/Utility/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
+        'e80e30046ea6fdfe12005b11c3d7267e' => __DIR__ . '/..' . '/friendsofcake/crud/aliases.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
     );
@@ -98,6 +99,8 @@ class ComposerStaticInit5f955dd819abd197648a1f4e19fe19d1
         ),
         'C' => 
         array (
+            'Crud\\' => 5,
+            'CrudUsers\\' => 10,
             'Composer\\XdebugHandler\\' => 23,
             'Composer\\Spdx\\' => 14,
             'Composer\\Semver\\' => 16,
@@ -272,6 +275,14 @@ class ComposerStaticInit5f955dd819abd197648a1f4e19fe19d1
         'DebugKit\\' => 
         array (
             0 => __DIR__ . '/..' . '/cakephp/debug_kit/src',
+        ),
+        'Crud\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/friendsofcake/crud/src',
+        ),
+        'CrudUsers\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/friendsofcake/crud-users/src',
         ),
         'Composer\\XdebugHandler\\' => 
         array (

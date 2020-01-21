@@ -23,6 +23,7 @@ return array(
     '90236b492da7ca2983a2ad6e33e4152e' => $vendorDir . '/cakephp/cakephp/src/I18n/functions.php',
     'b1fc73705e1bec51cd2b20a32cf1c60a' => $vendorDir . '/cakephp/cakephp/src/Utility/bootstrap.php',
     '667aeda72477189d0494fecd327c3641' => $vendorDir . '/symfony/var-dumper/Resources/functions/dump.php',
+    'e80e30046ea6fdfe12005b11c3d7267e' => $vendorDir . '/friendsofcake/crud/aliases.php',
     '6124b4c8570aa390c21fafd04a26c69f' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
     '801c31d8ed748cfa537fa45402288c95' => $vendorDir . '/psy/psysh/src/functions.php',
 );
