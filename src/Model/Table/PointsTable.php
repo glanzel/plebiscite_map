@@ -37,6 +37,33 @@ class PointsTable extends Table
         
     }
 
+    public function geocoding($queryString){
+
+        debug($queryString);
+            $queryString = urlencode($queryString);
+
+            $urlString = "https://nominatim.openstreetmap.org/search?q=".$queryString."&format=geocodejson";
+            debug($urlString);
+            $opts = array(
+                'http'=>array(
+                    'header'=>array("Referer: $urlString\r\n")
+                )
+            );
+            $context = stream_context_create($opts);
+            $content = file_get_contents($urlString, false, $context);
+            $geoObj =  json_decode($content);
+            //debug($geoObj);
+            /* $breite = $geoObj->features[0]->geometry->coordinates[0];
+            $laenge = $geoObj->features[0]->geometry->coordinates[1]; */
+            if (isset($geoObj->features[0])){
+            return $geoObj->features[0]->geometry->coordinates;
+            }
+            else {
+                return null;
+            }
+
+    }
+
     /**
      * Default validation rules.
      *

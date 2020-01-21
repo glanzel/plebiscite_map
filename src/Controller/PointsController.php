@@ -40,7 +40,7 @@ class PointsController extends AppController
             $jsonpoint['properties']['PLZ']=$point->PLZ;
             $jsonpoint['properties']['adress']=$point->Stadt;
             //String, der an "Description" weitergegeben werden soll (Adressdaten fett, Beshreibung kursiv)
-            $descritionstring='**'.$point->Strasse.' '.$point->Nr.', '.$point->PLZ.' '.$point->Stadt.'**'.'\\n'.'*'.$point->Beschreibung.'*';
+            $descritionstring='**'.$point->Strasse.' '.$point->Nr.', '.$point->PLZ.' '.$point->Stadt.'**'."\n".'*'.$point->Beschreibung.'*';
             $jsonpoint['properties']['description'] = $descritionstring;
             $jsonpoint['geometry']=[];
 
@@ -82,30 +82,21 @@ class PointsController extends AppController
         $point = $this->Points->newEntity();
         if ($this->request->is('post')) {
             //TODO: gocoding
+            debug($this->Points);
             $queryString = $this->request->getData()['Strasse'].".".$this->request->getData()['Nr'].", ".$this->request->getData()['PLZ']." ".$this->request->getData()['Stadt'];
-            debug($queryString);
-            $queryString = urlencode($queryString);
-
-            $urlString = "https://nominatim.openstreetmap.org/search?q=".$queryString."&format=geocodejson";
-            debug($urlString);
-            $opts = array(
-                'http'=>array(
-                    'header'=>array("Referer: $urlString\r\n")
-                )
-            );
-            $context = stream_context_create($opts);
-            $content = file_get_contents($urlString, false, $context);
-            $geoObj =  json_decode($content);
-            //debug($geoObj);
-            $breite = $geoObj->features[0]->geometry->coordinates[0];
-            $laenge = $geoObj->features[0]->geometry->coordinates[1];
-
+            $coordinates =$this->Points->geocoding($queryString);
+            if ($coordinates==null){
+                $this->Flash->error(__('Adresse konnte nicht gefunden werden. Sammelpunkt wurde nicht gespeichert.'));
+                return;
+            }
+            
+            list ($point->Breitengrad, $point->Laengengrad)=$coordinates;
             //debug("$breite , $laenge");
 
             $point = $this->Points->patchEntity($point, $this->request->getData());
 
-            $point->Breitengrad = $breite;
-            $point->Laengengrad = $laenge;
+            /* $point->Breitengrad = $breite;
+            $point->Laengengrad = $laenge; */
 
             if ($this->Points->save($point)) {
                 $this->Flash->success(__('The point has been saved.'));
