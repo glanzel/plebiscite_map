@@ -61,7 +61,14 @@ class PointsController extends AppController
         $point=$this->Points->get($id);
         $point->active='1';
         $this->Points->save($point);
-        $this->redirect('action' => 'index');
+        $this->redirect(['action' => 'index']);
+    }
+    
+    public function index()
+    {
+        $points = $this->paginate($this->Points);
+
+        $this->set(compact('points'));
     }
 
     /**
