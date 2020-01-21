@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\EntityInterface;
 
 /**
  * Points Model
@@ -39,7 +40,17 @@ class PointsTable extends Table
     
     protected function _initializeSchema(\Cake\Database\Schema\TableSchema $schema){
         $schema->columnType('Details', 'json');
+        $schema->columnType('Details_intern', 'json');
         return $schema;
+    }
+
+    function save(EntityInterface $entity, $options=Array()){
+
+        $entity->Details=json_encode($entity->Details);
+        
+        $entity=parent::save($entity, $options);
+
+        return $entity;
     }
 
     public function geocoding($queryString){
