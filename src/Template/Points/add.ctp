@@ -15,7 +15,11 @@
             echo $this->Form->control('Nr');
             echo $this->Form->control('PLZ');
             echo $this->Form->control('Stadt');
+            echo $this->Form->control('Email', ['label' => 'Emailadresse']);
             echo $this->Form->control('Details.Öffnungszeiten');
+            echo $this->Form->label('Sammelkits vorhanden');
+            echo $this->Form->checkbox('Details.Sammelkits_vorhanden');
+            echo $this->Form->control('Details_intern.Telefonnummer');
             //echo $this->Form->control('Laengengrad');
             //echo $this->Form->control('Breitengrad');
             //echo $this->Form->control('Kategorie');

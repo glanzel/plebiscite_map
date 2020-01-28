@@ -107,21 +107,42 @@ class PointsController extends AppController
             //debug("$breite , $laenge");
 
             $point = $this->Points->patchEntity($point, $this->request->getData());
-           //debug($point);
+            //debug($point);
+            //debug( $this->request->getData());
 
             /* $point->Breitengrad = $breite;
             $point->Laengengrad = $laenge; */
 
             if ($this->Points->save($point)) {
                 $this->Flash->success(__('The point has been saved.'));
-
-                return $this->redirect(['action' => 'view', $point->id]);
+                $email=new \Cake\Mailer\Email('default');
+                $email->to($point->Email);
+                $email->subject('Dein Sammelpunkt');
+                $email->setViewVars(['point' => $point]);
+                $email->template('add_point');
+                $email->emailFormat('html');
+                $email->from(['unterschreiben@dwenteignen.de' =>'Deutsche Wohnen und Co enteignen']);
+                $email->send();
+               return $this->redirect(['action' => 'view', $point->id]);
             }
 
             $this->Flash->error(__('The point could not be saved. Please, try again.'));
         }
         }
         $this->set(compact('point'));
+    }
+
+    public function testsend($id){
+       $point=$this->Points->get($id);
+        $email=new \Cake\Mailer\Email('default');
+                $email->to($point->Email);
+                $email->subject('Dein Sammelpunkt');
+                $email->setViewVars(['point' => $point]);
+                $email->template('add_point');
+                $email->emailFormat('html');
+                $email->from(['unterschreiben@dwenteignen.de' =>'Deutsche Wohnen und Co enteignen']);
+                $email->send();
+
     }
 
     public function testadd($name='test'){
