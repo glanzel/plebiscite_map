@@ -8,9 +8,8 @@ class ComposerStaticInit5f955dd819abd197648a1f4e19fe19d1
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
-        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '34122c0574b76bf21c9a8db62b5b9cf3' => __DIR__ . '/..' . '/cakephp/chronos/src/carbon_compat.php',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         'cf97c57bfe0f23854afd2f3818abb7a0' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/create_uploaded_file.php',
         '9bf37a3d0dad93e29cb4e1b1bfab04e9' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/marshal_headers_from_sapi.php',
         'ce70dccb4bcc2efc6e94d2ee526e6972' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/marshal_method_from_sapi.php',
@@ -23,9 +22,11 @@ class ComposerStaticInit5f955dd819abd197648a1f4e19fe19d1
         'ede59e3a405fb689cd1cebb7bb1db3fb' => __DIR__ . '/..' . '/cakephp/cakephp/src/Collection/functions.php',
         '90236b492da7ca2983a2ad6e33e4152e' => __DIR__ . '/..' . '/cakephp/cakephp/src/I18n/functions.php',
         'b1fc73705e1bec51cd2b20a32cf1c60a' => __DIR__ . '/..' . '/cakephp/cakephp/src/Utility/bootstrap.php',
-        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
+        '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         'e80e30046ea6fdfe12005b11c3d7267e' => __DIR__ . '/..' . '/friendsofcake/crud/aliases.php',
+        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        'ef9c510a90b1b0731c3586bd1728caba' => __DIR__ . '/..' . '/neomerx/json-api/src/I18n/format.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
     );
 
@@ -66,6 +67,7 @@ class ComposerStaticInit5f955dd819abd197648a1f4e19fe19d1
             'Symfony\\Component\\Config\\' => 25,
             'Seld\\PharUtils\\' => 15,
             'Seld\\JsonLint\\' => 14,
+            'Search\\' => 7,
         ),
         'P' => 
         array (
@@ -77,6 +79,10 @@ class ComposerStaticInit5f955dd819abd197648a1f4e19fe19d1
             'Prophecy\\' => 9,
             'PhpParser\\' => 10,
             'Phinx\\' => 6,
+        ),
+        'N' => 
+        array (
+            'Neomerx\\JsonApi\\' => 16,
         ),
         'M' => 
         array (
@@ -100,7 +106,9 @@ class ComposerStaticInit5f955dd819abd197648a1f4e19fe19d1
         'C' => 
         array (
             'Crud\\' => 5,
+            'CrudView\\' => 9,
             'CrudUsers\\' => 10,
+            'CrudJsonApi\\' => 12,
             'Composer\\XdebugHandler\\' => 23,
             'Composer\\Spdx\\' => 14,
             'Composer\\Semver\\' => 16,
@@ -114,6 +122,7 @@ class ComposerStaticInit5f955dd819abd197648a1f4e19fe19d1
         ),
         'B' => 
         array (
+            'BootstrapUI\\' => 12,
             'Bake\\' => 5,
         ),
         'A' => 
@@ -204,6 +213,10 @@ class ComposerStaticInit5f955dd819abd197648a1f4e19fe19d1
         array (
             0 => __DIR__ . '/..' . '/seld/jsonlint/src/Seld/JsonLint',
         ),
+        'Search\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/friendsofcake/search/src',
+        ),
         'Psy\\' => 
         array (
             0 => __DIR__ . '/..' . '/psy/psysh/src',
@@ -235,6 +248,10 @@ class ComposerStaticInit5f955dd819abd197648a1f4e19fe19d1
         'Phinx\\' => 
         array (
             0 => __DIR__ . '/..' . '/robmorgan/phinx/src/Phinx',
+        ),
+        'Neomerx\\JsonApi\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/neomerx/json-api/src',
         ),
         'Migrations\\' => 
         array (
@@ -280,9 +297,17 @@ class ComposerStaticInit5f955dd819abd197648a1f4e19fe19d1
         array (
             0 => __DIR__ . '/..' . '/friendsofcake/crud/src',
         ),
+        'CrudView\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/friendsofcake/crud-view/src',
+        ),
         'CrudUsers\\' => 
         array (
             0 => __DIR__ . '/..' . '/friendsofcake/crud-users/src',
+        ),
+        'CrudJsonApi\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/friendsofcake/crud-json-api/src',
         ),
         'Composer\\XdebugHandler\\' => 
         array (
@@ -323,6 +348,10 @@ class ComposerStaticInit5f955dd819abd197648a1f4e19fe19d1
         'CakePHP\\' => 
         array (
             0 => __DIR__ . '/..' . '/cakephp/cakephp-codesniffer/CakePHP',
+        ),
+        'BootstrapUI\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/friendsofcake/bootstrap-ui/src',
         ),
         'Bake\\' => 
         array (

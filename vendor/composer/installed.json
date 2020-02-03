@@ -1036,6 +1036,59 @@
         ]
     },
     {
+        "name": "friendsofcake/bootstrap-ui",
+        "version": "1.4.1",
+        "version_normalized": "1.4.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/FriendsOfCake/bootstrap-ui.git",
+            "reference": "d61733535cad6f4ec1c966bacc6cafaef3f461c0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/FriendsOfCake/bootstrap-ui/zipball/d61733535cad6f4ec1c966bacc6cafaef3f461c0",
+            "reference": "d61733535cad6f4ec1c966bacc6cafaef3f461c0",
+            "shasum": ""
+        },
+        "require": {
+            "cakephp/cakephp": "^3.5"
+        },
+        "require-dev": {
+            "cakephp/chronos": "^1.1",
+            "phpunit/phpunit": "^5.7.14|^6.0"
+        },
+        "time": "2018-12-20T17:11:21+00:00",
+        "type": "cakephp-plugin",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "BootstrapUI\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jad Bitar",
+                "homepage": "http://jadb.io",
+                "role": "Author"
+            },
+            {
+                "name": "Others",
+                "homepage": "https://github.com/friendsofcake/bootstrap-ui/graphs/contributors"
+            }
+        ],
+        "description": "Twitter Bootstrap 3 support for CakePHP 3",
+        "homepage": "http://github.com/friendsofcake/bootstrap-ui",
+        "keywords": [
+            "bootstrap",
+            "cakephp",
+            "twitter"
+        ]
+    },
+    {
         "name": "friendsofcake/crud",
         "version": "5.4.7",
         "version_normalized": "5.4.7.0",
@@ -1118,6 +1171,74 @@
         ]
     },
     {
+        "name": "friendsofcake/crud-json-api",
+        "version": "0.5.4",
+        "version_normalized": "0.5.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/FriendsOfCake/crud-json-api.git",
+            "reference": "382907f1d9cca4fe23fc9113d93bb9ea45037806"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/FriendsOfCake/crud-json-api/zipball/382907f1d9cca4fe23fc9113d93bb9ea45037806",
+            "reference": "382907f1d9cca4fe23fc9113d93bb9ea45037806",
+            "shasum": ""
+        },
+        "require": {
+            "cakephp/cakephp": "^3.7",
+            "friendsofcake/crud": "^5.4.6",
+            "neomerx/json-api": "^3.0",
+            "php": ">=7.1.0"
+        },
+        "require-dev": {
+            "friendsofcake/cakephp-test-utilities": "dev-master",
+            "friendsofcake/search": "^4.4",
+            "phpunit/phpunit": "^5.7.14|^6.0"
+        },
+        "suggest": {
+            "friendsofcake/search": "Provides search capabilities for the Crud plugin."
+        },
+        "time": "2019-07-10T13:17:25+00:00",
+        "type": "cakephp-plugin",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "CrudJsonApi\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Bravo-Kernel",
+                "homepage": "http://github.com/bravo-kernel",
+                "role": "Author"
+            },
+            {
+                "name": "Marlin Cremers",
+                "homepage": "https://github.com/Marlinc",
+                "role": "Contributor"
+            },
+            {
+                "name": "Walther Lalk",
+                "homepage": "https://github.com/dakota",
+                "role": "Contributor"
+            }
+        ],
+        "description": "Listener for building CakePHP Crud APIs following the JSON API specification.",
+        "homepage": "https://github.com/FriendsOfCake/crud-json-api",
+        "keywords": [
+            "api",
+            "cakephp",
+            "crud",
+            "json api",
+            "jsonapi"
+        ]
+    },
+    {
         "name": "friendsofcake/crud-users",
         "version": "0.6.1",
         "version_normalized": "0.6.1.0",
@@ -1171,6 +1292,128 @@
             "Users",
             "cakephp",
             "crud"
+        ]
+    },
+    {
+        "name": "friendsofcake/crud-view",
+        "version": "0.14.0",
+        "version_normalized": "0.14.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/FriendsOfCake/crud-view.git",
+            "reference": "991a198d708cc83477216e3dea38bcae2b904af2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/FriendsOfCake/crud-view/zipball/991a198d708cc83477216e3dea38bcae2b904af2",
+            "reference": "991a198d708cc83477216e3dea38bcae2b904af2",
+            "shasum": ""
+        },
+        "require": {
+            "cakephp/cakephp": "^3.7",
+            "friendsofcake/bootstrap-ui": "^1.4",
+            "friendsofcake/crud": "^5.4"
+        },
+        "require-dev": {
+            "friendsofcake/cakephp-test-utilities": "^1.0",
+            "markstory/asset_compress": "^3.2",
+            "phpunit/phpunit": "^5.7.14|^6.0"
+        },
+        "time": "2019-12-01T08:35:47+00:00",
+        "type": "cakephp-plugin",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "CrudView\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Christian Winther",
+                "homepage": "http://cakephp.nu/",
+                "role": "Author"
+            },
+            {
+                "name": "Jose Diaz-Gonzalez",
+                "homepage": "http://josediazgonzalez.com/",
+                "role": "Author"
+            }
+        ],
+        "description": "View layer for CRUD",
+        "homepage": "https://github.com/FriendsOfCake/crud-view",
+        "keywords": [
+            "bake",
+            "cake",
+            "cakephp",
+            "create",
+            "crud",
+            "delete",
+            "retrieve",
+            "scaffold",
+            "scaffolding",
+            "update"
+        ]
+    },
+    {
+        "name": "friendsofcake/search",
+        "version": "5.3.1",
+        "version_normalized": "5.3.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/FriendsOfCake/search.git",
+            "reference": "eea56401bac26f19abda5854821c0ffcec8c7ab8"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/FriendsOfCake/search/zipball/eea56401bac26f19abda5854821c0ffcec8c7ab8",
+            "reference": "eea56401bac26f19abda5854821c0ffcec8c7ab8",
+            "shasum": ""
+        },
+        "require": {
+            "cakephp/cakephp": "^3.5"
+        },
+        "require-dev": {
+            "cakephp/cakephp-codesniffer": "^3.0",
+            "cakephp/chronos": "^1.1",
+            "friendsofcake/cakephp-test-utilities": "^1.0",
+            "muffin/webservice": "^1.3",
+            "phpunit/phpunit": "^5.7.14|^6.0"
+        },
+        "time": "2019-06-11T18:06:05+00:00",
+        "type": "cakephp-plugin",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Search\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Christian Winther",
+                "homepage": "http://cakephp.nu/",
+                "role": "Author"
+            },
+            {
+                "name": "ADmad",
+                "homepage": "https://github.com/admad",
+                "role": "Contributor"
+            }
+        ],
+        "description": "CakePHP Search plugin using PRG pattern",
+        "homepage": "https://github.com/FriendsOfCake/search",
+        "keywords": [
+            "cake3",
+            "cakephp",
+            "cakephp3",
+            "search"
         ]
     },
     {
@@ -1664,6 +1907,64 @@
             "duplicate",
             "object",
             "object graph"
+        ]
+    },
+    {
+        "name": "neomerx/json-api",
+        "version": "v3.0.5",
+        "version_normalized": "3.0.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/neomerx/json-api.git",
+            "reference": "7a64109c4d1f1be2484906e6194b0898e6ea99e0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/neomerx/json-api/zipball/7a64109c4d1f1be2484906e6194b0898e6ea99e0",
+            "reference": "7a64109c4d1f1be2484906e6194b0898e6ea99e0",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=7.1.0"
+        },
+        "require-dev": {
+            "friendsofphp/php-cs-fixer": "^2.14",
+            "mockery/mockery": "^1.0",
+            "phpmd/phpmd": "^2.6",
+            "phpunit/phpunit": "^7.0",
+            "scrutinizer/ocular": "^1.4",
+            "squizlabs/php_codesniffer": "^2.9"
+        },
+        "time": "2019-06-18T18:25:06+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Neomerx\\JsonApi\\": "src/"
+            },
+            "files": [
+                "src/I18n/format.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0"
+        ],
+        "authors": [
+            {
+                "name": "neomerx",
+                "email": "info@neomerx.com"
+            }
+        ],
+        "description": "Framework agnostic JSON API (jsonapi.org) implementation",
+        "homepage": "https://github.com/neomerx/json-api",
+        "keywords": [
+            "JSON-API",
+            "api",
+            "json",
+            "jsonapi",
+            "jsonapi.org",
+            "neomerx"
         ]
     },
     {
