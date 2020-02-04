@@ -15,14 +15,19 @@
 <body class="home">
 <h2><center>
 <?php
-echo "crud:  ";
+echo "crud-app:  ";
 echo $this->Html->link("Orte", ['controller' => 'Orte']);
 echo " ";
 echo $this->Html->link("Users", ['controller' => 'Users']);
-echo " | std: ";
+echo " | std-app: ";
 echo $this->Html->link("Points", ['controller' => 'Points']);
+echo " | map-view: ";
+echo '<a href="http://www.dwenteignen.de/sammelpunkte/" target="_new">karte</a></h2>'
 ?>
 </center>
 </h2>
+
+<center><h2></center>
+
 </body>
 </html>

@@ -29,11 +29,9 @@ class PointsTable extends Table
     public function initialize(array $config)
     {
         parent::initialize($config);
-
-        
         $this->setTable('points');
-        $this->setDisplayField('Name');
-        $this->setPrimaryKey('id');
+        //$this->setDisplayField('Name');
+        //$this->setPrimaryKey('id');
         
     }
     

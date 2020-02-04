@@ -45,12 +45,27 @@ class OrteController extends CrudAppController
 		$action->config('scaffold.fields_blacklist', ['Details', 'Details_intern', 'Laengengrad', 'Breitengrad', 'active', 'Kategorie']);
 
     	$this->Crud->on('beforeSave', [$this, '_beforeSave']); //um irgendwas zu ändern
+    	
         $this->Crud->execute();
     }
     
-	public function _beforeSave($subject){
-		
-		$this->Log($subject); //Possible Debuging 
+    public function _beforeSave(\Cake\Event\Event $event){
+        $this->Log($event); //Possible Debuging
+	    $point = $event->getSubject()->entity;
+	    $this->Log($point); //Possible Debuging
+	    $queryString = $point->Strasse.".".$point->Nr.", ".$point->PLZ." ".$point->Stadt;
+	    $coordinates =$this->Orte->geocoding($queryString);
+
+	    if ($coordinates==null){
+	        $this->Flash->error(__('Adresse konnte nicht gefunden werden. Sammelpunkt wurde nicht gespeichert.'));
+	        return false;
+	    }
+	    else{
+	        list ($point->Breitengrad, $point->Laengengrad)=$coordinates;
+	        //debug("$breite , $laenge");
+	    }		
+	    //$this->Log($subject); //Possible Debuging
+	    return true;
 	}	    
          
 
