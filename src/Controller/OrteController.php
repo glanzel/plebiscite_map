@@ -14,7 +14,9 @@ class OrteController extends CrudAppController
 	
 		public function initialize(){
 		parent::initialize();
-		$this->Crud->mapAction('umap_json', 'CrudUsers.Logout');
+		$this->Crud->mapAction('umap_json', 'CrudUsers.Logout'); 		//TODO: Warum muss das so?
+		$this->Crud->mapAction('activate', 'CrudUsers.Logout'); 		//TODO: Warum muss das so?
+		
 		$this->Auth->allow(['umap_json', 'add']); //TODO: Benutzten wenn es eine Benutzerverwaltung gibt.
 	}
 
@@ -27,10 +29,18 @@ class OrteController extends CrudAppController
     public function index(){
         // Your customization and configuration changes here
 		$action = $this->Crud->action();
-		$action->config('scaffold.fields_blacklist', ['Details', 'Details_intern']);
+		$action->config('scaffold.fields_blacklist', ['id','Details', 'Details_intern']);
+		$action->config('scaffold.actions', ['activate', 'edit', 'view', 'delete']);
         return $this->Crud->execute();
     }     
-
+    
+    public function activate($id){	
+        $point=$this->Orte->get($id);
+        $point->active='1';
+        $this->Orte->save($point);
+        $this->redirect(['action' => 'index']);
+    }
+    
 	public function view(){
     	$action = $this->Crud->action();
 		$action->config('scaffold.field_settings', [
@@ -78,7 +88,6 @@ class OrteController extends CrudAppController
      
     public function umapJson($kategorie=null){
 		$this->viewBuilder()->setClassName('\Cake\View\View'); //um crud wieder auszuschalten
-		$this->Crud->mapAction('umapJson', 'CrudUsers.view');
         $points=$this->Orte->find();
 
         $jsonpoints=[];
