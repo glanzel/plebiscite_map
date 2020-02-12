@@ -18,8 +18,11 @@ class UsersController extends CrudAppController{
 		$this->Crud->mapAction('register', 'CrudUsers.Register');
 		$this->Crud->mapAction('logout', 'CrudUsers.Logout');
 		$this->Crud->mapAction('erstellen', 'Crud.View');
+		$this->Crud->mapAction('forgotPassword','CrudUsers.ForgotPassword');
+		$this->Crud->mapAction('resetPassword','CrudUsers.ResetPassword');
+		$this->Crud->mapAction('verify','CrudUsers.Verify');
 		
-		$this->Auth->allow(['register', 'erstellen']);
+		$this->Auth->allow(['register', 'erstellen', "verify", "forgotPassword", "resetPassword"]);
 
 	}
 
@@ -33,14 +36,56 @@ class UsersController extends CrudAppController{
     }
     public function register(){
 		$this->Crud->action()->enable();
+		
+		$this->Crud->on('beforeRegister', function(\Cake\Event\Event $event) {
+		    $user = $event->getSubject()->entity;
+		    $user->token = $this->Users->getActivationHash($user);
+		});
+		    
 		return $this->Crud->execute();
     }
+    
+    public function verify($id = null, $token = null){
+        $this->Crud->on('verifyToken', function(\Cake\Event\Event $event) {
+            if($event->subject()->token == $this->Users->getActivationHash($event->getSubject()->entity)) $event->subject()->verified = true;
+        });
+            return $this->Crud->execute();
+    }
+    
     public function login(){
-		$this->Crud->mapAction('login', 'CrudUsers.Login');
 		$this->Crud->action()->enable();
 		return $this->Crud->execute();
 	}
-    
+
+	public function logout(){
+	    return $this->Crud->execute();
+	}
+	
+	public function forgotPassword(){
+	    $this->Crud->on('afterForgotPassword', function(\Cake\Event\Event $event) {
+	        $user = $event->getSubject()->entity;
+	        $user->token = $this->Users->getActivationHash($user);
+	        $this->Users->save($user);
+	        //TODO: Send Email.
+	    });
+	    return $this->Crud->execute();
+	}
+	
+	public function resetPassword($token){
+	    $this->Crud->action()->config("tokenField", "token");
+	    $this->Crud->on('verifyToken', function(\Cake\Event\Event $event) {
+	        debug($event->subject()->token);
+	        if($event->subject()->token == $this->Users->getActivationHash($event->getSubject()->entity)){ 
+	            $event->subject()->verified = true;
+	            $event->getSubject()->entity->verified = true;
+	            $event->getSubject()->entity->token = "00000";
+	        }
+	        
+	    });
+	        
+	    return $this->Crud->execute();
+	}
+	
 
 	
 

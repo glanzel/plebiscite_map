@@ -36,6 +36,7 @@ trait VerifyTrait
      */
     protected function _verify($token)
     {
+		//debug($token);
         if (empty($token)) {
             $this->_tokenError();
         }
@@ -55,14 +56,14 @@ trait VerifyTrait
 
         $this->_trigger('beforeFind', $subject);
         $entity = $subject->query->first();
-
+		//debug($entity);
         if (empty($token)) {
             $this->_tokenError();
         }
 
         $subject->set(['entity' => $entity]);
         $this->_trigger('afterFind', $subject);
-
+		//debug($subject);
         if (!isset($subject->verified)) {
             $subject->set(['verified' => false]);
         }
