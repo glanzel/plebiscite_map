@@ -87,7 +87,9 @@ class CrudAppController extends AppController
         }
 
         function beforeFilter(\Cake\Event\Event $event){
-			if($this->Crud->action()->enabled()){
+            //debug($this->Crud);
+
+            if(isset($this->Crud) && $this->Crud->action()->enabled()){
 
 				$this->Crud->action()->config('scaffold.sidebar_navigation', false);
 				$menu = [

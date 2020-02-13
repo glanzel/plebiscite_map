@@ -1,9 +1,11 @@
 <?php
 namespace App\Model\Table;
 
+use Cake\Core\Configure;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\Utility\Security;
 use Cake\Validation\Validator;
 
 /**
@@ -35,17 +37,21 @@ class UsersTable extends Table
         $this->setPrimaryKey('id');
     }
 
+    function getActivationHash(\App\Model\Entity\User $user){
+        if (!isset($user->email)) return false;
+        $hashSt = Configure::read('Security.salt') . $user->email . date('Ymd');
+        $hashSt = Security::hash($hashSt);
+        return substr($hashSt, 0, 24);
+    }
+    
+    
     /**
      * Default validation rules.
      *
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
-    {
-        $validator
-            ->uuid('id')
-            ->allowEmptyString('id', null, 'create');
+    public function validationDefault(Validator $validator){
 
         $validator
             ->email('email')
@@ -57,15 +63,6 @@ class UsersTable extends Table
             ->maxLength('password', 200)
             ->requirePresence('password', 'create')
             ->notEmptyString('password');
-
-        $validator
-            ->scalar('token')
-            ->maxLength('token', 200)
-            ->allowEmptyString('token');
-
-        $validator
-            ->boolean('verified')
-            ->allowEmptyString('verified');
 
         return $validator;
     }

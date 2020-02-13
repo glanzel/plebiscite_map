@@ -12,8 +12,9 @@ use App\Controller\AppController;
 class OrteController extends CrudAppController
 {
 	
-		public function initialize(){
+	public function initialize(){
 		parent::initialize();
+		$this->Crud->mapAction('testam', 'CrudUsers.Logout'); 		//TODO: Warum muss das so?
 		$this->Crud->mapAction('umap_json', 'CrudUsers.Logout'); 		//TODO: Warum muss das so?
 		$this->Crud->mapAction('activate', 'CrudUsers.Logout'); 		//TODO: Warum muss das so?
 		
@@ -72,24 +73,39 @@ class OrteController extends CrudAppController
 	    }
 	    else{
 	        list ($point->Breitengrad, $point->Laengengrad)=$coordinates;
+	        $this->_sendAddMail($point);
 	        //debug("$breite , $laenge");
 	    }		
 	    //$this->Log($subject); //Possible Debuging
 	    return true;
-	}	    
+	}
+	
+	protected function _sendAddMail($point){
+	    $email=new \Cake\Mailer\Email('default');
+	    $email->to($point->Email);
+	    $email->setSubject('Dein Sammelpunkt');
+	    $email->setViewVars(['point' => $point]);
+	    $email->viewBuilder()->setTemplate('add_point');
+	    debug($email);
+	    $email->send();
+	}
+	
          
 
-	public function edit()
-    {
+	public function edit(){
         // Your customization and configuration changes here
         return $this->Crud->execute();
     }     
 
+    public function delete(){
+        return $this->Crud->execute();
+    }
+    
      
     public function umapJson($kategorie=null){
 		$this->viewBuilder()->setClassName('\Cake\View\View'); //um crud wieder auszuschalten
-        $points=$this->Orte->find();
-
+		$points=$this->Points->find()->where(['active' => '1']);
+		
         $jsonpoints=[];
         $jsonpoints['type']='FeatureCollection';
         $jsonpoints['features']=[];
@@ -158,5 +174,12 @@ class OrteController extends CrudAppController
 		$this->Crud->execute();
 	}
     */
+    
+    public function testam($id = "58818e5b-1948-4651-a471-ee9da1b6bff2"){
+        $this->viewBuilder()->setClassName('\Cake\View\View'); //um crud wieder auszuschalten
+        $point = $this->Orte->get($id);
+        debug($point);
+        $this->_sendAddMail($point);
+    }
     
 }
