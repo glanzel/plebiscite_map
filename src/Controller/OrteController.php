@@ -105,8 +105,8 @@ class OrteController extends CrudAppController
             $jsonpoint['properties']['PLZ']=$point->PLZ;
             $jsonpoint['properties']['adress']=$point->Stadt;
             //String, der an "Description" weitergegeben werden soll (Adressdaten fett, Beshreibung kursiv)
-            $descritionstring='**'.$point->Strasse.' '.$point->Nr.', '.$point->PLZ.' '.$point->Stadt.'**'.' *'.$point->Beschreibung.'*';
-            $jsonpoint['properties']['description'] = $descritionstring;
+            $descriptionstring='**'.$point->Strasse.' '.$point->Nr.', '.$point->PLZ.' '.$point->Stadt.'**'.' *'.$point->Beschreibung.'*';
+            $jsonpoint['properties']['description'] = $descriptionstring;
             $jsonpoint['geometry']=[];
 
             $jsonpoint['geometry']['type']='Point';
