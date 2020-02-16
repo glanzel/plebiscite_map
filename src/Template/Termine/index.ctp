@@ -11,28 +11,31 @@
     </ul>
 </nav>
 <div class="termine index large-9 medium-8 columns content">
-    <h3><?= __('Termine') ?></h3>
+    <h3><?= __('Alle Termine') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
+                <!-- <th scope="col"><?= $this->Paginator->sort('id') ?></th> -->
                 <th scope="col"><?= $this->Paginator->sort('beginn') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('ende') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('ort') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('typ') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('details') ?></th>
+                <!--TODO: die Felder aus der Tabelle TerminDetails müssten hier eingefügt werden.-->
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($termine as $termin): ?>
             <tr>
-                <td><?= $this->Number->format($termin->id) ?></td>
-                <td><?= h($termin->beginn) ?></td>
+                    <!-- Uninteressant für Menschen, die das einsehen wollen -->
+                    <!-- <td><?= $this->Number->format($termin->id) ?></td> -->
+                <td><?= h($termin->beginn) ?></td> <!--TODO: MEZ-Zeitformat-->
                 <td><?= h($termin->ende) ?></td>
                 <td><?= $this->Number->format($termin->stamm_orte->ort) ?></td> <!--warum greift er hier nicht auf den Ort in Stammorte zu?-->
                 <td><?= h($termin->typ) ?></td>
                 <td><?= $this->Number->format($termin->details) ?></td>
+                <!--TODO: die Felder aus der Tabelle TerminDetails müssten hier eingefügt werden.-->
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $termin->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $termin->id]) ?>

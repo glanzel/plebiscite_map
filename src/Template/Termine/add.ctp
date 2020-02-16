@@ -6,20 +6,21 @@
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Termine'), ['action' => 'index']) ?></li>
+        
+        <li><?= $this->Html->link(__('Alle Termine'), ['action' => 'index']) ?></li>
     </ul>
 </nav>
 <div class="termine form large-9 medium-8 columns content">
     <?= $this->Form->create($termine) ?>
     <fieldset>
-        <legend><?= __('Add Termine') ?></legend>
+        <legend><?= __('Füge einen Termin hinzu') ?></legend>
         <?php
             echo $this->Form->control('beginn', ['empty' => true]);
             echo $this->Form->control('ende', ['empty' => true]);
-            echo $this->Form->control('ort');
+            echo $this->Form->control('ort'); // Todo: hier müssten die enum-Orte aus der Tabelle Stammorte zugänglich sein.
             echo $this->Form->control('typ');
             echo $this->Form->control('details');
+            // todo: die Felder aus der Tabelle TerminDetails müssen hier eingefügt werden.
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
