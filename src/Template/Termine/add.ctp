@@ -19,8 +19,8 @@
             echo $this->Form->control('ende', ['empty' => true]); */
             echo $this->Form->select('ort', $stammorte);
             echo $this->Form->control('typ');
-            echo $this->Form->control('TerminDetails.id');
-            echo $this->Form->control('TerminDetails.Treffpunkt');
+            //echo $this->Form->control('TerminDetails.id');
+            echo $this->Form->control('TerminDetails.treffpunkt');
             // todo: die Felder aus der Tabelle TerminDetails müssen hier eingefügt werden.
         ?>
     </fieldset>

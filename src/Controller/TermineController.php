@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Termine Controller
@@ -56,14 +57,10 @@ class TermineController extends AppController
         
         if ($this->request->is('post')) {
             $termine = $this->Termine->patchEntity($termine, $this->request->getData());
-            debug($this->request->getData());
-            $termindetails=$this->Termine->Termindetails->newEntity($this->request->getData()['TerminDetails']);
-            debug($this->request->getData()['TerminDetails']);
-            debug($termindetails);
-            $termindetails=$this->Termine->Termindetails->save($termindetails);
+            
+            $termindetails=$this->Termine->TerminDetails->newEntity($this->request->getData()['TerminDetails']);
+            $termindetails=$this->Termine->TerminDetails->save($termindetails);
             $termine->details=$termindetails->id;
-            debug($termindetails);
-            debug($termine);
 
            /*  $termine = $this->Termine->patchEntity($termine, $this->request->getData()); */
             if ($this->Termine->save($termine)) {
