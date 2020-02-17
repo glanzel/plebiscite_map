@@ -31,7 +31,7 @@ class StammOrteTable extends Table
         parent::initialize($config);
 
         $this->setTable('stamm_orte');
-        $this->setDisplayField('id');
+        $this->setDisplayField('ort');
         $this->setPrimaryKey('id');
         $this->hasMany('Termine', [
             'foreignKey' => 'id'
