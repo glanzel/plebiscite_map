@@ -41,7 +41,11 @@ class UsersController extends CrudAppController{
 		    $user = $event->getSubject()->entity;
 		    $user->token = $this->Users->getActivationHash($user);
 		});
-		    
+	    $this->Crud->on('afterRegister', function(\Cake\Event\Event $event) {
+	        $user = $event->getSubject()->entity;
+            $this->Users->_senRegisterMail($user);
+	    });
+		
 		return $this->Crud->execute();
     }
     
@@ -86,9 +90,15 @@ class UsersController extends CrudAppController{
 	    return $this->Crud->execute();
 	}
 	
-
-	
-
+	protected function _sendRegisterMail($user, $subject = "Benutzer registiert",  $template = "register_user"){
+	    $email=new \Cake\Mailer\Email('default');
+	    $email->to($user->Email);
+	    $email->setSubject($subject);
+	    $email->setViewVars(['user' => $user]);
+	    $email->viewBuilder()->setTemplate($template);
+	    debug($email);
+	    $email->send();
+	}
 
     /**
      * Index method

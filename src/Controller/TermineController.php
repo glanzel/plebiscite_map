@@ -57,7 +57,6 @@ class TermineController extends AppController
 
             $termine = $this->Termine->patchEntity($termine, $this->request->getData(), [
                 'associated' => ['TerminDetails', 'StammOrte']);*/
-
             $termine = $this->Termine->patchEntity($termine, $this->request->getData());
             if ($this->Termine->save($termine)) {
                 $this->Flash->success(__('Dein Termin wurde eingetragen.'));
