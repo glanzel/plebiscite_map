@@ -15,11 +15,12 @@
     <fieldset>
         <legend><?= __('Füge einen Termin hinzu') ?></legend>
         <?php
-            echo $this->Form->control('beginn', ['empty' => true]);
-            echo $this->Form->control('ende', ['empty' => true]);
-            echo $this->Form->control('ort'); // Todo: hier müssten die enum-Orte aus der Tabelle Stammorte zugänglich sein.
+            /* echo $this->Form->control('beginn', ['empty' => true]);
+            echo $this->Form->control('ende', ['empty' => true]); */
+            echo $this->Form->select('ort', $stammorte);
             echo $this->Form->control('typ');
-            echo $this->Form->control('details');
+            echo $this->Form->control('TerminDetails.id');
+            echo $this->Form->control('TerminDetails.Treffpunkt');
             // todo: die Felder aus der Tabelle TerminDetails müssen hier eingefügt werden.
         ?>
     </fieldset>

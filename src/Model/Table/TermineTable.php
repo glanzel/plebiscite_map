@@ -30,7 +30,7 @@ class TermineTable extends Table
     {
         parent::initialize($config);
         $this->belongsTo('StammOrte', ['foreignKey' => 'ort']);
-
+        $this->belongsTo('Termindetails', ['foreignKey' => 'details']);
         $this->setTable('termine');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');

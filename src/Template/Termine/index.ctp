@@ -32,7 +32,7 @@
                     <!-- <td><?= $this->Number->format($termin->id) ?></td> -->
                 <td><?= h($termin->beginn) ?></td> <!--TODO: MEZ-Zeitformat-->
                 <td><?= h($termin->ende) ?></td>
-                <td><?= $this->Number->format($termin->stamm_orte->ort) ?></td> <!--warum greift er hier nicht auf den Ort in Stammorte zu?-->
+                <td><?= $termin->stamm_orte->ort ?></td> <!--warum greift er hier nicht auf den Ort in Stammorte zu?-->
                 <td><?= h($termin->typ) ?></td>
                 <td><?= $this->Number->format($termin->details) ?></td>
                 <!--TODO: die Felder aus der Tabelle TerminDetails müssten hier eingefügt werden.-->
