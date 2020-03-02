@@ -45,12 +45,16 @@ use Cake\Routing\Route\DashedRoute;
  */
 Router::defaultRouteClass(DashedRoute::class);
 
+const API_CONTROLLER = ['Orte'];
+
 Router::scope('/', function (RouteBuilder $routes) {
     // Register scoped middleware for in scopes.
     $routes->registerMiddleware('csrf', new CsrfProtectionMiddleware([
         'httpOnly' => true
     ]));
-
+    foreach(API_CONTROLLER as $apiContr){
+        $routes->resources($apiContr, ['inflect' => 'dasherize']);
+    }
     /*
      * Apply a middleware to the current route scope.
      * Requires middleware to be registered through `Application::routes()` with `registerMiddleware()`

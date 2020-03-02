@@ -104,7 +104,7 @@ class CrudAppController extends AppController
 					),
 					new MenuItem(
 						'Register',
-						['controller' => 'Users', 'action' => 'login']
+						['controller' => 'Users', 'action' => 'register']
 					)];
 				$inMenu = [	
 					new MenuItem(

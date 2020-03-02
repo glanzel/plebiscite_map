@@ -17,14 +17,21 @@ class OrteController extends CrudAppController
 		$this->Crud->mapAction('testam', 'CrudUsers.Logout'); 		//TODO: Warum muss das so?
 		$this->Crud->mapAction('umap_json', 'CrudUsers.Logout'); 		//TODO: Warum muss das so?
 		$this->Crud->mapAction('activate', 'CrudUsers.Logout'); 		//TODO: Warum muss das so?
+		$this->Crud->mapAction('indexJson', 'Crud.Index'); 		//TODO: Warum muss das so?
 		
-		$this->Auth->allow(['umap_json', 'add']); //TODO: Benutzten wenn es eine Benutzerverwaltung gibt.
+		$this->Auth->allow(['umap_json', 'add', 'index', 'indexJson']); //TODO: Benutzten wenn es eine Benutzerverwaltung gibt.
 	}
 
 
 	public function beforeFilter(\Cake\Event\Event $event){
 		//$this->Crud->disable(['umap_json']).
 		parent::beforeFilter($event);
+	}
+	
+	public function indexJson(){
+	    //debug($action);
+	    return $this->Crud->execute();
+	    	    
 	}
 	
     public function index(){

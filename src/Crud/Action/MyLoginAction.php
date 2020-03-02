@@ -1,12 +1,12 @@
 <?php
 
-namespace CrudUsers\Action;
+namespace App\Crud\Action;
 
 use Crud\Action\BaseAction;
 use Crud\Event\Subject;
 use Crud\Traits\RedirectTrait;
 
-class LoginAction extends BaseAction
+class MyLoginAction extends BaseAction
 {
 
     use RedirectTrait;
@@ -19,7 +19,11 @@ class LoginAction extends BaseAction
             ],
             'error' => [
                 'text' => 'Invalid credentials, please try again'
-            ]
+            ],
+            'inactive' => [
+                'text' => 'Not Active, please contact an Administrator.'
+            ],
+
         ],
     ];
 
@@ -49,10 +53,13 @@ class LoginAction extends BaseAction
         $this->_trigger('beforeLogin', $subject);
 
         if ($user = $this->_controller()->Auth->identify()) {
-            return $this->_success($subject, $user);
-        }
+            if($user['active']) return $this->_success($subject, $user);
+            else{ 
+				$this->_error($subject, 'inactive');
+			}
 
-        $this->_error($subject);
+        }
+		else $this->_error($subject);
     }
 
     /**
@@ -81,12 +88,12 @@ class LoginAction extends BaseAction
      * @param \Crud\Event\Subject $subject Event subject
      * @return void
      */
-    protected function _error(Subject $subject)
+    protected function _error(Subject $subject, $message = 'error')
     {
         $subject->set(['success' => false]);
 
         $this->_trigger('afterLogin', $subject);
-        $this->setFlash('error', $subject);
+        $this->setFlash($message, $subject);
         $this->_trigger('beforeRender', $subject);
     }
 }
