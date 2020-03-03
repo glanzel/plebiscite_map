@@ -81,8 +81,16 @@ class UsersController extends CrudAppController{
 	    $this->Crud->on('afterForgotPassword', function(\Cake\Event\Event $event) {
 	        $user = $event->getSubject()->entity;
 	        $user->token = $this->Users->getActivationHash($user);
-	        $this->Users->save($user);
-	        //TODO: Send Email.
+            $this->Users->save($user);
+            /*habe mir den Code hier drüber nicht erschließen können. 
+            ist after.. eine crud-Funktionalität? Und ermöglicht
+            die Erzeugung eines tokens nach Aufruf der Seiten/Methode?*/
+            $email=new \Cake\Mailer\Email('default');
+	        $email->to($user->email);
+            $email->setSubject('Passwort zurücksetzen');
+            $email->setViewVars(['user' => $user]);
+            $email->viewBuilder()->setTemplate('reset_pw');
+	        $email->send();
 	    });
 	    return $this->Crud->execute();
 	}
