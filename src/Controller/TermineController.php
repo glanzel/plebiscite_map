@@ -59,13 +59,14 @@ class TermineController extends AppController
             $termine = $this->Termine->patchEntity($termine, $this->request->getData());
             
             $termindetails=$this->Termine->TerminDetails->newEntity($this->request->getData()['TerminDetails']);
+            debug($this->request->getData()['TerminDetails']);
             $termindetails=$this->Termine->TerminDetails->save($termindetails);
             $termine->details=$termindetails->id;
 
            /*  $termine = $this->Termine->patchEntity($termine, $this->request->getData()); */
             if ($this->Termine->save($termine)) {
                 $this->Flash->success(__('Dein Termin wurde eingetragen.'));
-                return $this->redirect(['action' => 'index']);
+                //return $this->redirect(['action' => 'index']);
             }
             else $this->Flash->error(__('Dein Termin konnte nicht gespeichert werden. Bitte versuche es noch einmal.'));
         }

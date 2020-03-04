@@ -15,8 +15,8 @@
     <fieldset>
         <legend><?= __('Füge einen Termin hinzu') ?></legend>
         <?php
-            /* echo $this->Form->control('beginn', ['empty' => true]);
-            echo $this->Form->control('ende', ['empty' => true]); */
+            echo $this->Form->control('beginn', ['empty' => true]);
+            echo $this->Form->control('ende', ['empty' => true]); 
             echo $this->Form->select('ort', $stammorte);
             echo $this->Form->control('typ');
             //echo $this->Form->control('TerminDetails.id');

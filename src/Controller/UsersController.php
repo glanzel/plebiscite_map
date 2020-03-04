@@ -43,7 +43,7 @@ class UsersController extends CrudAppController{
 		});
 	    $this->Crud->on('afterRegister', function(\Cake\Event\Event $event) {
 	        $user = $event->getSubject()->entity;
-	        debug($user);
+	        //debug($user);
 	        $this->_sendRegisterMail($user, [ "action" => "verify", "_full" => true, $user->id, $user->token, "subject" => "Bitte verifiziere nun deinen Emailadresse" ] );
 	    });
 		

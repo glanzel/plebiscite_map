@@ -15,13 +15,15 @@ class MyLoginAction extends BaseAction
         'enabled' => true,
         'messages' => [
             'success' => [
-                'text' => 'Successfully logged you in'
+                'text' => 'Du bist eingeloggt!'
             ],
             'error' => [
-                'text' => 'Invalid credentials, please try again'
+                'text' => 'Email oder Passwort falsch. Bitte versuche es noch einmal'
             ],
+
+            //kann man die "inactive"-Anzeige customizen? "error" ist in rot, gleich zu sehen. "Inactive"-Text leicht zu übersehen.
             'inactive' => [
-                'text' => 'Not Active, please contact an Administrator.'
+                'text' => 'Dein Account wurde noch nicht aktiviert. Bitte kontaktiere eine*n Admin.'
             ],
 
         ],

@@ -7,6 +7,9 @@
             echo $this->Form->control('password');
         ?>
     </fieldset>
+    <?= $this->Html->link(__('Passwort vergessen?'), ['action'=> 'forgotPassword']) ?>
+    <br>
+    <br>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
