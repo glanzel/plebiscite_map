@@ -23,9 +23,11 @@ class TermineController extends AppController
         
         $termine = $this->paginate($query);
         
+/*      
         foreach ($termine as $termin){
-        debug($termin->stamm_orte->ort);
+            debug($termin->stamm_orte->ort);
         }
+*/
         $this->set(compact('termine'));
     }
 

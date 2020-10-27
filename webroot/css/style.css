@@ -37,9 +37,6 @@ legend {
     color:#15848F;
 }
 
-.row {
-    max-width: 80rem;
-}
 
 .actions.columns {
     margin-top:1rem;
@@ -484,12 +481,6 @@ div.message.hidden {
     min-height: 92%; /* full height almost always */
 }
 
-/* Force equal height by overflowing */
-.content,
-#actions-sidebar {
-    margin-bottom: -99999px;
-    padding-bottom: 99999px;
-}
 @media(max-width: 640px) {
     #actions-sidebar {
         padding-bottom: 2rem;

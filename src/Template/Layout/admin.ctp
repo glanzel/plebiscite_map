@@ -5,21 +5,19 @@
     <title><?= $this->get('title');?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <?= $this->Html->css('base.css') ?>
+    <?= $this->Html->css('style.css') ?>
+
     <?= $this->Html->meta('icon'); ?>
     <?= $this->fetch('meta'); ?>
     <?= $this->fetch('css'); ?>
     <?= $this->fetch('headjs'); ?>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.css"/><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css"/><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.2/css/selectize.bootstrap3.min.css"/>
 </head>
 <body>
     <nav class="navbar navbar-default navbar-static-top" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
                 <?php
                     $siteTitleContent = $siteTitle;
                     if (!empty($siteTitleImage)) {
@@ -32,7 +30,7 @@
                     }
                 ?>
             </div>
-
+            <?= $this->element('topbar'); ?>
         </div>
     </nav>
 
@@ -41,7 +39,6 @@
             <?php if (!empty($disableSidebar)) : ?>
                 <div class="col-sm-12">
                     <?= $this->Flash->render(); ?>
-                    <?= $this->element('breadcrumbs') ?>
                     <?= $this->fetch('content'); ?>
                     <?= $this->fetch('action_link_forms'); ?>
                 </div>

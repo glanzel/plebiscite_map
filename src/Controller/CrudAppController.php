@@ -44,7 +44,9 @@ class CrudAppController extends AppController
      */
     public function initialize()
     {
+        
             parent::initialize();
+            
             
             $this->loadComponent('RequestHandler');
             $this->loadComponent('Flash');
@@ -84,45 +86,13 @@ class CrudAppController extends AppController
              * see https://book.cakephp.org/3/en/controllers/components/security.html
              */
             //$this->loadComponent('Security');
+            $this->viewBuilder()->setLayout('admin');
         }
 
         function beforeFilter(\Cake\Event\Event $event){
             //debug($this->Crud);
 
             if(isset($this->Crud) && $this->Crud->action()->enabled()){
-
-				$this->Crud->action()->config('scaffold.sidebar_navigation', false);
-				$menu = [
-					new MenuItem(
-						'Ort+',
-						['controller' => 'Orte', 'action' => 'add']
-					)];
-				$outMenu = [	
-					new MenuItem(
-						'Log In',
-						['controller' => 'Users', 'action' => 'login']
-					),
-					new MenuItem(
-						'Register',
-						['controller' => 'Users', 'action' => 'register']
-					)];
-				$inMenu = [	
-					new MenuItem(
-						'Orte',
-						['controller' => 'Orte', 'action' => 'index']
-					),
-					new MenuItem(
-						'Benutzer',
-						['controller' => 'Users', 'action' => 'index']
-					),
-					new MenuItem(
-						'Log Out',
-						['controller' => 'Users', 'action' => 'logout']
-					)
-				];
-				$menu = $this->Auth->user() ? array_merge($menu, $inMenu) : array_merge($menu, $outMenu);
-				
-				$this->Crud->action()->config('scaffold.utility_navigation', $menu);
 			}
 		}
         

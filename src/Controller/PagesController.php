@@ -28,6 +28,11 @@ use Cake\View\Exception\MissingTemplateException;
  */
 class PagesController extends AppController
 {
+    function initialize(){
+        parent::initialize();
+        $this->Auth->allow(['display']); 
+    }
+    
     /**
      * Displays a view
      *

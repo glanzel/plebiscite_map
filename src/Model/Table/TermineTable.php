@@ -26,12 +26,12 @@ class TermineTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
-    public function initialize(array $config)
-    {
+        
+    public function initialize(array $config){
         parent::initialize($config);
         $this->belongsTo('StammOrte', ['foreignKey' => 'ort']);
         $this->belongsTo('Termindetails', ['foreignKey' => 'details']);
-        $this->setTable('termine');
+        $this->setTable('Termine');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
     }

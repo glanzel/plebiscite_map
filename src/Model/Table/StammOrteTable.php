@@ -30,7 +30,7 @@ class StammOrteTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('stamm_orte');
+        $this->setTable('Stamm_Orte');
         $this->setDisplayField('ort');
         $this->setPrimaryKey('id');
         $this->hasMany('Termine', [
