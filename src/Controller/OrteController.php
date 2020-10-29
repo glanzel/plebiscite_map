@@ -107,7 +107,6 @@ class OrteController extends CrudAppController
     public function delete(){
         return $this->Crud->execute();
     }
-    
      
     public function umapJson($kategorie=null){
 		$this->viewBuilder()->setClassName('\Cake\View\View'); //um crud wieder auszuschalten

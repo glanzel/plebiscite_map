@@ -1,4 +1,5 @@
 <?php
+//debug($utilityNavigation);
 if (empty($utilityNavigation)) {
     return;
 }

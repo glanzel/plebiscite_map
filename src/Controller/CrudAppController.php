@@ -32,6 +32,7 @@ use CrudView\Menu\MenuItem;
  */
 class CrudAppController extends AppController
 {
+    use \Crud\Controller\ControllerTrait;
     
     /**
      * Initialization hook method.
@@ -91,10 +92,12 @@ class CrudAppController extends AppController
 
         function beforeFilter(\Cake\Event\Event $event){
             //debug($this->Crud);
-
             if(isset($this->Crud) && $this->Crud->action()->enabled()){
-			}
-		}
+                $this->Crud->action()->config('scaffold.sidebar_navigation', false);
+                $this->Crud->action()->config('scaffold.utility_navigation', $this->getMenu($this->Auth->user()));
+            }
+            parent::beforeFilter($event);
+        }
         
         /**
          * Before render callback.

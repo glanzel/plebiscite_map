@@ -1,4 +1,12 @@
 <?php
+
+
+use Cake\Core\Configure;
+
+// set some local variables
+Configure::write('umap_url' , 'https://umap.openstreetmap.fr/);
+ 
+ 
 /*
  * Local configuration file to provide any overrides to your app.php configuration.
  * Copy and save this file as app_local.php and make changes as required.
@@ -68,4 +76,18 @@ return [
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
         ],
     ],
+    
+    'Email' => [
+        'default' => [
+            'transport' => 'default',
+            'from' => ['email' =>'Name'],
+	        'emailFormat' => 'html',
+            /*
+             * Will by default be set to config value of App.encoding, if that exists otherwise to UTF-8.
+             */
+            //'charset' => 'utf-8',
+            //'headerCharset' => 'utf-8',
+        ],
+    ],
+
 ];

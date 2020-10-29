@@ -206,11 +206,11 @@ return [
     'EmailTransport' => [
         'default' => [
 			'className' => 'Smtp',
-            'host' => 'emailhost',
+            'host' => '',
             'port' => 25,
             'timeout' => 30,
-            'username' => 'email',
-            'password' => 'password',
+            'username' => '',
+            'password' => '',
             'client' => null,
             'tls' => true,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
@@ -229,7 +229,7 @@ return [
     'Email' => [
         'default' => [
             'transport' => 'default',
-            'from' => ['unterschreiben@webseite' =>'lalala'],
+            'from' => ['email' =>'Name'],
 	        'emailFormat' => 'html',
             /*
              * Will by default be set to config value of App.encoding, if that exists otherwise to UTF-8.

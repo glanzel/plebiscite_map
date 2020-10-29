@@ -17,6 +17,8 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use CrudView\Menu\MenuItem;
+use Cake\Core\Configure;
+
 
 
 /**
@@ -32,6 +34,9 @@ class AppController extends Controller{
     public function beforeFilter(Event $event){
         $menu = $this->getMenu($this->Auth->user());
         $this->set('utilityNavigation', $menu);
+        $umap_url = \Cake\Core\Configure::read('umap_url');
+        $this->set(compact('umap_url'));
+        
         //$this->Crud->action()->config('scaffold.utility_navigation', $menu);
     }
     
