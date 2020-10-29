@@ -114,7 +114,7 @@ class UsersController extends CrudAppController{
 	    $email->setSubject($subject);
 	    $email->setViewVars(['user' => $user, 'linkArr' => $linkArr]);
 	    $email->viewBuilder()->setTemplate($template);
-	    debug($email);
+	    //debug($email);
 	    $email->send();
 	}
 

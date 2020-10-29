@@ -177,7 +177,7 @@ return [
      *   breathing room to complete logging or error handling.
      */
     'Error' => [
-        'errorLevel' => E_ALL,
+        'errorLevel' => E_ALL & ~E_USER_DEPRECATED,
         'exceptionRenderer' => ExceptionRenderer::class,
         'skipLog' => [],
         'log' => true,
@@ -229,8 +229,7 @@ return [
     'Email' => [
         'default' => [
             'transport' => 'default',
-            'from' => ['email' =>'Name'],
-	        'emailFormat' => 'html',
+            'emailFormat' => 'html',
             /*
              * Will by default be set to config value of App.encoding, if that exists otherwise to UTF-8.
              */

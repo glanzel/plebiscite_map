@@ -13,7 +13,7 @@ class PointsController extends AppController
 {
 
 	public function beforeFilter(\Cake\Event\Event $event){
-		//$this->Auth->allow(['index']); //TODO: Benutzten wenn es eine Benutzerverwaltung gibt.
+		$this->Auth->allow(['umapJson']); //TODO: Benutzten wenn es eine Benutzerverwaltung gibt.
 	}
     /**
      * Index method

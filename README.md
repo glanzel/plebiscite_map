@@ -9,14 +9,19 @@ and provides the posibility to
 ## Installation
 
 1. Create Database from Migrations dwe.sql
-2. Copy app.php.template -> app.php and paste your credentials -> See ##Configuration
+2. Copy app_local.php.example -> app_local.php and paste your credentials -> See ##Configuration
 	-> you need a database and an email (smtp) provider 
 3. lies http://kabelkopf.de/index.php/2019/10/18/apache-fuer-cakephp-vorbereiten/ (deutsch)	
 	or prepare your apache for cakephp or use built in webserver
-4. prepare the map
-	4.1 register at https://umap.openstreetmap.fr/de/
-	
-5. startup
+4. startup
+
+5. prepare the map
+	4.1 register at https://umap.openstreetmap.fr/de/ and set up a map.
+	4.2 paste http//:YOUR_DOMAIN/points/umapJson somewhere inside  of umap
+	4.3 add your map to src/bootstrap
+
+
+
 
 You can now either use your machine's webserver to view the default home page, or start
 up the built-in webserver with:
