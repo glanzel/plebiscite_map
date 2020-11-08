@@ -14,9 +14,9 @@ class OrteController extends CrudAppController
 	
 	public function initialize(){
 		parent::initialize();
-		$this->Crud->mapAction('testam', 'CrudUsers.Logout'); 		//TODO: Warum muss das so?
-		$this->Crud->mapAction('umap_json', 'CrudUsers.Logout'); 		//TODO: Warum muss das so?
-		$this->Crud->mapAction('activate', 'CrudUsers.Logout'); 		//TODO: Warum muss das so?
+		//$this->Crud->mapAction('testam', 'CrudUsers.Logout'); 		//TODO: Warum muss das so?
+		$this->Crud->mapAction('umap_json', 'Crud.View'); 		//TODO: Warum muss das so?
+		$this->Crud->mapAction('deactivate', 'Crud.View'); 		//TODO: Warum muss das so?
 		$this->Crud->mapAction('indexJson', 'Crud.Index'); 		//TODO: Warum muss das so?
 		
 		$this->Auth->allow(['umap_json', 'add', 'index', 'indexJson', 'umapJson']); //TODO: Benutzten wenn es eine Benutzerverwaltung gibt.
@@ -36,15 +36,26 @@ class OrteController extends CrudAppController
 	
     public function index(){
         // Your customization and configuration changes here
+        
 		$action = $this->Crud->action();
-		$action->config('scaffold.fields_blacklist', ['id','Details', 'Details_intern']);
-		$action->config('scaffold.actions', ['activate', 'edit', 'view', 'delete']);
+		$action->config('scaffold.fields_blacklist', ['id','Details', 'Details_intern', 'Laengengrad', 'Breitengrad']);
+		$action->config('scaffold.actions', ['edit', 'view', 'delete']);
+		$action->setConfig('scaffold.field_settings', [
+		    'active' => [
+		        'formatter' => function ($name, $value, $entity, $options, $View) {
+		        $yesno = [0 => '<span class="label label-danger">No</span>', 1 => '<span class="label label-success">Yes</span>'];
+		        return $View->Html->link($yesno[$value], ['action' => 'deactivate', $entity->id],['escape' => false]);
+		        }
+		     ]
+		]);
         return $this->Crud->execute();
     }     
-    
-    public function activate($id){	
+
+    // activates aswell
+    public function deactivate($id){
         $point=$this->Orte->get($id);
-        $point->active='1';
+        if($point->active == '0') $point->active='1';
+        else $point->active='0';
         $this->Orte->save($point);
         $this->redirect(['action' => 'index']);
     }
@@ -101,7 +112,9 @@ class OrteController extends CrudAppController
 
 	public function edit(){
         // Your customization and configuration changes here
-        return $this->Crud->execute();
+	    $action = $this->Crud->action();
+	    $action->config('scaffold.fields_blacklist', ['Details', 'Details_intern', 'Laengengrad', 'Breitengrad', 'active', 'Kategorie']);
+	    return $this->Crud->execute();
     }     
 
     public function delete(){
@@ -110,7 +123,7 @@ class OrteController extends CrudAppController
      
     public function umapJson($kategorie=null){
 		$this->viewBuilder()->setClassName('\Cake\View\View'); //um crud wieder auszuschalten
-		$points=$this->Points->find()->where(['active' => '1']);
+		$points=$this->Orte->find()->where(['active' => '1']);
 		
         $jsonpoints=[];
         $jsonpoints['type']='FeatureCollection';

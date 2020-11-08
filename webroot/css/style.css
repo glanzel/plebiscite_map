@@ -344,14 +344,12 @@ pre {
     margin-top: 0rem;
     border: 0;
     width: 100%;
-    table-layout: fixed;
 }
 
 table {
     background: #fff;
     margin-bottom: 1.25rem;
     border: none;
-    table-layout: fixed;
     width: 100%;
 }
 
