@@ -18,7 +18,7 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Point[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\Point findOrCreate($search, callable $callback = null, $options = [])
  */
-class PointsTable extends Table
+class PointsTable extends AppTable
 {
     /**
      * Initialize method
@@ -43,11 +43,11 @@ class PointsTable extends Table
 
      public function geocoding($queryString){
 
-        debug($queryString);
+        //debug($queryString);
             $queryString = urlencode($queryString);
 
             $urlString = "https://nominatim.openstreetmap.org/search?q=".$queryString."&format=geocodejson";
-            debug($urlString);
+            //debug($urlString);
             $opts = array(
                 'http'=>array(
                     'header'=>array("Referer: $urlString\r\n")

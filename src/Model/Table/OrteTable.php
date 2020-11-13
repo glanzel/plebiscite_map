@@ -25,7 +25,7 @@ class OrteTable extends PointsTable{
     }
     
     public function save(\Cake\Datasource\EntityInterface $entity, $options = Array()){
-		debug($entity);
+		//debug($entity);
 		return parent::save($entity, $options);
 	}
 

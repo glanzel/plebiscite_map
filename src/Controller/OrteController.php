@@ -71,7 +71,7 @@ class OrteController extends CrudAppController
 	
 	public function add(){
 		$action = $this->Crud->action();
-		$action->config('scaffold.fields_blacklist', ['Details', 'Details_intern', 'Laengengrad', 'Breitengrad', 'active', 'Kategorie']);
+		$action->config('scaffold.fields_blacklist', ['Details', 'Details_intern', 'Laengengrad', 'Breitengrad', 'active', 'Kategorie', 'created']);
 
     	$this->Crud->on('beforeSave', [$this, '_beforeSave']); //um irgendwas zu ändern
     	
@@ -104,7 +104,7 @@ class OrteController extends CrudAppController
 	    $email->setSubject('Dein Sammelpunkt');
 	    $email->setViewVars(['point' => $point]);
 	    $email->viewBuilder()->setTemplate('add_point');
-	    debug($email);
+	    //debug($email);
 	    $email->send();
 	}
 	
@@ -113,7 +113,7 @@ class OrteController extends CrudAppController
 	public function edit(){
         // Your customization and configuration changes here
 	    $action = $this->Crud->action();
-	    $action->config('scaffold.fields_blacklist', ['Details', 'Details_intern', 'Laengengrad', 'Breitengrad', 'active', 'Kategorie']);
+	    $action->config('scaffold.fields_blacklist', ['Details', 'Details_intern', 'Laengengrad', 'Breitengrad', 'active', 'Kategorie', 'created']);
 	    return $this->Crud->execute();
     }     
 

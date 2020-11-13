@@ -14,6 +14,7 @@ class PointsController extends AppController
 
 	public function beforeFilter(\Cake\Event\Event $event){
 		$this->Auth->allow(['umapJson']); //TODO: Benutzten wenn es eine Benutzerverwaltung gibt.
+		parent::beforeFilter($event);
 	}
     /**
      * Index method
@@ -235,4 +236,133 @@ class PointsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    
+    
+    public function import($save = false, $team = null, $tag = null){
+        $this->viewBuilder()->setClassName('\Cake\View\View'); //um crud wieder auszuschalten
+        //$this->set('save', $save);
+        $data = $this->request->getQueryParams();
+            $schema = $this->getSchema('points');
+            if ($this->request->is('post')) {
+                $save = isset($this->request->data['import']) ? true : false;
+                //$filename = $this->request->data['file']['name']; // NOT needed
+                $path = $this->request->data['file']['tmp_name'];
+                $this->set('path', $path);
+                $csv = file_get_contents($path);
+                if( ! mb_detect_encoding($csv, 'UTF-8', true)) $csv = utf8_encode($csv);
+                $rows = explode(PHP_EOL, $csv);
+                foreach($rows as $key => $row){
+                    if(empty($row)) unset($rows[$key]);
+                    else $rows[$key] = str_getcsv($row,';');
+                }
+                $cats = array_shift($rows);
+                debug($cats);
+                $newCats = $cats;
+                $echo = $save ? "":  "<b>Simuliere importieren:</b><br><br>";
+                
+                array_multisort($rows);
+                //debug($rows);
+
+                foreach($rows as $rowKey => $row){
+                    $data = null;
+                    foreach($row as $key => $field){
+                        if(!isset($data[$newCats[$key]])) $data[$newCats[$key]] = $field;
+                        else $data[$newCats[$key]] .= ", $field";
+                    }
+
+                    //existiert die zeile bereits ?
+                    /*
+                    debug($data);
+                    $cond = $data;
+                    //$cond['created'] = date('Y-m-d'));
+                    $query = $this->Points->find('all',['conditions' => $cond]);
+                    $register = $query->first();
+                    if(!empty($register)){
+                        $echo .= ("<b>existiert scheinbar schon:</b> $register->Name $register->Strasse<br>");
+                        continue;
+                    }
+                    */
+                    $register = $this->Points->newEntity($data);
+                    debug($register);
+                    if(empty($register->Name)){
+                        $echo .= "kein Name, kann nichts speichern: $register->Beschreibung<br>";
+                        continue;
+                    }
+                    $register->created = date('Y-m-d H:i:s');
+                    if($save){
+                        $sregister = $this->Points->save($register);
+                    }
+                    else $echo .= (" <b>würde speichern:</b> $register->Name $register->Strasse $register->created<br>");
+                }
+                if($save) $this->Flash->success("Datei wurde erfolgreich gespeichert");
+                else $this->set("echo", $echo);
+                
+            }
+        }
+        
+        public function getSchema($tableName){
+            $db = \Cake\Datasource\ConnectionManager::get('default');
+            // Create a schema collection.
+            $collection = $db->schemaCollection();
+            // Get a single table (instance of Schema\TableSchema)
+            $tableSchema = $collection->describe($tableName);
+            //Get columns list from table
+            $columns = $tableSchema->columns();
+            return $columns;
+        }
+        
+        public function export($orderBy = 'Name'){
+            $this->autoRender = false;
+            
+            $data = $this->request->getQueryParams();
+            
+            $options = [];
+            $options[ 'fields' ] = ['Name', 'Strasse', 'Nr', 'PLZ', 'Stadt', 'Email', 'Beschreibung'];
+            //$options['order'] = $this->Registers->explodeParam($orderBy);
+            //debug($options['order']);
+            
+            if(isset($cond)) $options[ 'conditions' ] = $cond;
+            
+            $registers = $this->Points->find('all', $options);
+            //debug($registers);
+            
+            $registers = $registers->all()->toArray();
+            //debug ($registers);
+            $this->response->type('csv');
+            $this->response->body($this->str_putcsv($registers));
+        }
+        
+        
+        public function fieldMapping($catArray){
+            $this->viewBuilder()->setClassName('\Cake\View\View'); //um crud wieder auszuschalten
+            foreach($catArray as $key => $cat){
+                if(stristr($cat, "datum")) $catArray[$key] = 'belegdatum';
+                else if(stristr($cat, "buchungstag")) $catArray[$key] = 'belegdatum';
+                else if(stristr($cat, "betrag")) $catArray[$key] = 'einnahme';
+                else $catArray[$key] = 'bemerkung';
+            }
+            return $catArray;
+        }   
+        
+        function str_putcsv($data, $separator = ";") {
+            # Generate CSV data from array
+            $fh = fopen('php://temp', 'rw'); # don't create a file, attempt
+            # to use memory instead
+            
+            # write out the headers
+            fputcsv($fh, array_keys(current($data)->toArray()), $separator);
+            
+            # write out the data
+            foreach ( $data as $row ) {
+                //debug($row->toArray());
+                fputcsv($fh, $row->toArray(), $separator);
+            }
+            rewind($fh);
+            $csv = stream_get_contents($fh);
+            fclose($fh);
+            
+            return $csv;
+        }
+           
+    
 }

@@ -66,6 +66,15 @@ class AppController extends Controller{
                 ['controller' => 'Orte', 'action' => 'index']
                 ),
             new MenuItem(
+                'ImpOrte',
+                ['controller' => 'Points', 'action' => 'import']
+                ),
+            new MenuItem(
+                'ExpOrte',
+                ['controller' => 'Points', 'action' => 'export']
+                ),
+            
+            new MenuItem(
                 'Benutzer',
                 ['controller' => 'Users', 'action' => 'index']
                 ),
