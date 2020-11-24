@@ -41,6 +41,17 @@ class PointsTable extends AppTable
         return $schema;
     }
 
+    public function geocodePoint($point){
+        $queryString = $point->Strasse.".".$point->Nr.", ".$point->PLZ." ".$point->Stadt;
+        $coordinates =$this->geocoding($queryString);
+        if ($coordinates==null) return false;
+        else{ 
+            list ($point->Breitengrad, $point->Laengengrad) = $coordinates;
+            return $point;
+        }
+            
+    }
+    
      public function geocoding($queryString){
 
         //debug($queryString);

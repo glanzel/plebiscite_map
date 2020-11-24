@@ -17,6 +17,7 @@ class OrteController extends CrudAppController
 		//$this->Crud->mapAction('testam', 'CrudUsers.Logout'); 		//TODO: Warum muss das so?
 		$this->Crud->mapAction('umap_json', 'Crud.View'); 		//TODO: Warum muss das so?
 		$this->Crud->mapAction('deactivate', 'Crud.View'); 		//TODO: Warum muss das so?
+		$this->Crud->mapAction('geocode', 'Crud.View'); 		//TODO: Warum muss das so?
 		$this->Crud->mapAction('indexJson', 'Crud.Index'); 		//TODO: Warum muss das so?
 		
 		$this->Auth->allow(['umap_json', 'add', 'index', 'indexJson', 'umapJson']); //TODO: Benutzten wenn es eine Benutzerverwaltung gibt.
@@ -38,7 +39,7 @@ class OrteController extends CrudAppController
         // Your customization and configuration changes here
         
 		$action = $this->Crud->action();
-		$action->config('scaffold.fields_blacklist', ['id','Details', 'Details_intern', 'Laengengrad', 'Breitengrad']);
+		$action->config('scaffold.fields_blacklist', ['id','Details', 'Details_intern', 'Breitengrad']);
 		$action->config('scaffold.actions', ['edit', 'view', 'delete']);
 		$action->setConfig('scaffold.field_settings', [
 		    'active' => [
@@ -46,15 +47,40 @@ class OrteController extends CrudAppController
 		        $yesno = [0 => '<span class="label label-danger">No</span>', 1 => '<span class="label label-success">Yes</span>'];
 		        return $View->Html->link($yesno[$value], ['action' => 'deactivate', $entity->id],['escape' => false]);
 		        }
-		     ]
+		     ],
+		     'Laengengrad' => [
+		         'formatter' => function ($name, $value, $entity, $options, $View) {
+		         $isset = empty($value) ? 0 : 1;
+		         $yesno2 = [0 => '<span class="label label-danger">No</span>', 1 => '<span class="label label-success">Yes</span>'];
+		         return $View->Html->link($yesno2[$isset], ['action' => 'geocode', $entity->id],['escape' => false]);
+		         }
+		         ]
+		         
 		]);
         return $this->Crud->execute();
-    }     
+    }
+    function geocode($id){
+        $this->viewBuilder()->setClassName('\Cake\View\View'); //um crud wieder auszuschalten
+        $point=$this->Orte->get($id);
+        $point = $this->Orte->geocodePoint($point);
+        if($point) $this->Orte->save($point);
+        else $this->Flash->error(__('Adresse konnte nicht gefunden werden. Geocoordinaten wurde nicht gespeichert.'));
+        $this->redirect(['action' => 'index']);
+    }
 
     // activates aswell
     public function deactivate($id){
         $point=$this->Orte->get($id);
-        if($point->active == '0') $point->active='1';
+        if($point->active == '0'){ 
+            if(empty($point->Laengengrad)){ 
+                $point = $this->Orte->geocodePoint($point);
+                if(! $point) {
+                    $this->Flash->error(__('Adresse konnte nicht gefunden werden. Sammelpunkt kann nicht freigeschaltet werden.'));
+                    return $this->redirect(['action' => 'index']);
+                }
+            }
+            $point->active='1';
+        }
         else $point->active='0';
         $this->Orte->save($point);
         $this->redirect(['action' => 'index']);
@@ -72,7 +98,8 @@ class OrteController extends CrudAppController
 	public function add(){
 		$action = $this->Crud->action();
 		$action->config('scaffold.fields_blacklist', ['Details', 'Details_intern', 'Laengengrad', 'Breitengrad', 'active', 'Kategorie', 'created']);
-
+		$action->config('scaffold.actions', []);
+		
     	$this->Crud->on('beforeSave', [$this, '_beforeSave']); //um irgendwas zu ändern
     	
         $this->Crud->execute();
@@ -112,9 +139,18 @@ class OrteController extends CrudAppController
 
 	public function edit(){
         // Your customization and configuration changes here
+	    /*
+	    $this->Crud->on('afterFind', function(\Cake\Event\Event $event) {
+	        debug("Found item: " . $event->getSubject()->entity . " in the database");
+	    });
+	    */
+	    
 	    $action = $this->Crud->action();
+	    $action->config('scaffold.actions', []);
 	    $action->config('scaffold.fields_blacklist', ['Details', 'Details_intern', 'Laengengrad', 'Breitengrad', 'active', 'Kategorie', 'created']);
 	    return $this->Crud->execute();
+	    
+	    
     }     
 
     public function delete(){

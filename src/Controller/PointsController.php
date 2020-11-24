@@ -145,6 +145,7 @@ class PointsController extends AppController
                 $email->send();
 
     }
+    
 
     public function testadd($name='test'){
         $point = $this->Points->newEntity();
@@ -256,7 +257,7 @@ class PointsController extends AppController
                     else $rows[$key] = str_getcsv($row,';');
                 }
                 $cats = array_shift($rows);
-                debug($cats);
+                //debug($cats);
                 $newCats = $cats;
                 $echo = $save ? "":  "<b>Simuliere importieren:</b><br><br>";
                 
@@ -283,7 +284,7 @@ class PointsController extends AppController
                     }
                     */
                     $register = $this->Points->newEntity($data);
-                    debug($register);
+                    //debug($register);
                     if(empty($register->Name)){
                         $echo .= "kein Name, kann nichts speichern: $register->Beschreibung<br>";
                         continue;
