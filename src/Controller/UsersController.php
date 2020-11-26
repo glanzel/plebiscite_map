@@ -99,12 +99,19 @@ class UsersController extends CrudAppController{
 	public function resetPassword($token){
 	    $this->Crud->action()->config("tokenField", "token");
 	    $this->Crud->on('verifyToken', function(\Cake\Event\Event $event) {
+	       /*
+	        debug($event->getSubject());
 	        debug($event->subject()->token);
+	        debug($this->Users->getActivationHash($event->getSubject()->entity));
+	        */
 	        if($event->subject()->token == $this->Users->getActivationHash($event->getSubject()->entity)){ 
-	            $event->subject()->verified = true;
-	            $event->getSubject()->entity->verified = true;
+	            //debug($event->getSubject()->entity);
+	            //debug($this->Users->getActivationHash($event->getSubject()->entity));
+	            $event->subject()->verified = 1;
+	            $event->getSubject()->entity->verified = 1;
 	            $event->getSubject()->entity->token = "00000";
 	        }
+	        
 	    });
 	    return $this->Crud->execute();
 	}
