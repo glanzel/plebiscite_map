@@ -52,7 +52,14 @@ class OrteTable extends PointsTable{
             ->maxLength('Strasse', 200)
             ->requirePresence('Strasse', 'create')
             ->notEmptyString('Strasse');
-
+        
+        $validator
+            ->scalar('Email')
+            ->maxLength('Email', 200)
+            ->requirePresence('Email', 'create')
+            ->notEmptyString('Email');
+            
+            
         $validator
             ->scalar('Nr')
             ->maxLength('Nr', 10)

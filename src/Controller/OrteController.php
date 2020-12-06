@@ -18,9 +18,10 @@ class OrteController extends CrudAppController
 		$this->Crud->mapAction('umap_json', 'Crud.View'); 		//TODO: Warum muss das so?
 		$this->Crud->mapAction('deactivate', 'Crud.View'); 		//TODO: Warum muss das so?
 		$this->Crud->mapAction('geocode', 'Crud.View'); 		//TODO: Warum muss das so?
-		$this->Crud->mapAction('indexJson', 'Crud.Index'); 		//TODO: Warum muss das so?
+		$this->Crud->mapAction('indexJson', 'Crud.Index'); //TODO: Warum muss das so?
+		$this->Crud->mapAction('testam', 'Crud.Index'); //TODO: Warum muss das so?
 		
-		$this->Auth->allow(['umap_json', 'add', 'index', 'indexJson', 'umapJson']); //TODO: Benutzten wenn es eine Benutzerverwaltung gibt.
+		$this->Auth->allow(['view','umap_json', 'add', 'index', 'indexJson', 'umapJson']); //TODO: Benutzten wenn es eine Benutzerverwaltung gibt.
 	}
 
 
@@ -92,6 +93,7 @@ class OrteController extends CrudAppController
 		'Details' =>[ 'formatter' => 'element', 'element' => 'json_view'],
 		'Details_intern' =>[ 'formatter' => 'element', 'element' => 'json_view']
 		]);
+		$action->config('scaffold.actions', []);
         return $this->Crud->execute();
     }     
 	
@@ -99,8 +101,15 @@ class OrteController extends CrudAppController
 		$action = $this->Crud->action();
 		$action->config('scaffold.fields_blacklist', ['Details', 'Details_intern', 'Laengengrad', 'Breitengrad', 'active', 'Kategorie', 'created']);
 		$action->config('scaffold.actions', []);
+		$action->setConfig('scaffold.field_settings', [
+		    'Email' => [
+		       'label' => "Email (Wir schicken dir einen Link an deine Email-Adresse, unter dem du den Ort ansehen kannst)"
+		    ]
+		]);
+		
 		
     	$this->Crud->on('beforeSave', [$this, '_beforeSave']); //um irgendwas zu ändern
+    	$this->Crud->on('afterSave', [$this, '_afterSave']); //um irgendwas zu ändern
     	
         $this->Crud->execute();
     }
@@ -117,13 +126,20 @@ class OrteController extends CrudAppController
 	        return false;
 	    }
 	    else{
+	        $this->Flash->error(__('Vielen Dank, der Ort wurde erfolgreich registriert. Um auf der Karte zu erscheinen, muss er noch vom zuständigen Kiezteam freigeschaltet werden.'));
 	        list ($point->Breitengrad, $point->Laengengrad)=$coordinates;
-	        $this->_sendAddMail($point);
-	        //debug("$breite , $laenge");
+	        //debug($point);
 	    }		
 	    //$this->Log($subject); //Possible Debuging
 	    return true;
 	}
+	
+	public function _afterSave(\Cake\Event\Event $event){
+	    $point = $event->getSubject()->entity;
+	    $this->_sendAddMail($point);
+	    
+	}
+	
 	
 	protected function _sendAddMail($point){
 	    $email=new \Cake\Mailer\Email('default');

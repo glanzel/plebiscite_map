@@ -67,7 +67,7 @@ class PointsTable extends AppTable
             $context = stream_context_create($opts);
             $content = file_get_contents($urlString, false, $context);
             $geoObj =  json_decode($content);
-            //debug($geoObj);
+            debug($geoObj);
             /* $breite = $geoObj->features[0]->geometry->coordinates[0];
             $laenge = $geoObj->features[0]->geometry->coordinates[1]; */
             if (isset($geoObj->features[0])){

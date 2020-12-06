@@ -176,7 +176,7 @@ class PointsController extends AppController
     public function test(){
 
         $urlString = "http://nominatim.openstreetmap.org";
-        $adress = "Flughafenstr.38, 12053 Berlin";
+        $adress = "Werbellinstr.38, 12053 Berlin";
         $queryString = urlencode($adress);
         $urlString = "https://nominatim.openstreetmap.org/search?q=".$queryString."&format=geocodejson";
         debug($urlString);
@@ -188,9 +188,8 @@ class PointsController extends AppController
         );
         $context = stream_context_create($opts);
         $content = file_get_contents($urlString, false, $context);
-
-
-        debug($content);
+        $geoObj =  json_decode($content);
+        debug($geoObj);
     }
 
     /**
