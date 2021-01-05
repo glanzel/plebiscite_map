@@ -3,6 +3,7 @@
     <fieldset>
         <legend><?= __('Bitte registriere dich, um Sammelort zu administrieren (und anderes)') ?></legend>
         <?php
+            echo $this->Form->control('bezirk');
             echo $this->Form->control('email');
             echo $this->Form->control('password', ['label' => 'Passwort']);
         ?>

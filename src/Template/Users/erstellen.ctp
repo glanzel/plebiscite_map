@@ -3,6 +3,7 @@
     <fieldset>
         <legend><?= __('Edit Point') ?></legend>
         <?php
+            echo $this->Form->control('Bezirk');
             echo $this->Form->control('email');
             echo $this->Form->control('password');
         ?>
