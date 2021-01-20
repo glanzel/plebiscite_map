@@ -51,10 +51,17 @@ class UsersController extends CrudAppController{
     }
     
     public function verify($token = null, $user_id = null ){
-        //debug($token);
+        debug($token);
         $this->Crud->on('verifyToken', function(\Cake\Event\Event $event) {
-            //debug($event->subject());
-            if($event->subject()->token == $this->Users->getActivationHash($event->getSubject()->entity)) $event->subject()->verified = true;
+            debug($this->Users->getActivationHash($event->getSubject()->entity));
+            debug($event->subject());
+            if($event->subject()->token == $this->Users->getActivationHash($event->getSubject()->entity)){
+                $event->subject()->entity->verified = 1;
+                //debug($event->subject()->entity);
+                $this->Users->save($event->subject()->entity);
+                return true;
+            }
+            
         });
         return $this->Crud->execute();
     }
