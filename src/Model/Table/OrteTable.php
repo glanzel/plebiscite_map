@@ -34,23 +34,23 @@ class OrteTable extends PointsTable{
 	}
 	
 	public function findActive(Query $query, array $options){
-	    $query->where([$this->aliasField('active') => true])->find('ordered');
+	    $query->where([$this->aliasField('active') => 1])->find('ordered');
 	    return $query;
 	}
 	
 	public function findInactive(Query $query, array $options){
-	    $query->where([$this->aliasField('active') => false])->find('ordered')->find('ordered');
+	    $query->where([$this->aliasField('active') => 0])->find('ordered')->find('ordered');
 	    return $query;
 	}
 
 	public function findMyActive(Query $query, array $options){
-	    $query->where([$this->aliasField('active') => true, $this->aliasField('Bezirk') => $options['bezirk']])->find('ordered');
+	    $query->where([$this->aliasField('active') => 1, $this->aliasField('Bezirk') => $options['bezirk']])->find('ordered');
 	    return $query;
 	}
 	
 	public function findMyInactive(Query $query, array $options){
 	    //debug($options);
-	    $query->where([$this->aliasField('active') => false, $this->aliasField('Bezirk') => $options['bezirk']])->find('ordered');
+	    $query->where([$this->aliasField('active') => 0, $this->aliasField('Bezirk') => $options['bezirk']])->find('ordered');
 	    return $query;
 	}
 	

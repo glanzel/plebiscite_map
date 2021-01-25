@@ -197,7 +197,7 @@ class OrteController extends CrudAppController
 	    
 	    $action = $this->Crud->action();
 	    $action->config('scaffold.actions', []);
-	    $action->config('scaffold.fields_blacklist', ['Details', 'Details_intern', 'Laengengrad', 'Breitengrad', 'active', 'Kategorie', 'created']);
+	    $action->config('scaffold.fields_blacklist', ['Bezirk', 'Details', 'Details_intern', 'Laengengrad', 'Breitengrad', 'active', 'Kategorie', 'created']);
 	    return $this->Crud->execute();
 	    
 	    
@@ -227,6 +227,7 @@ class OrteController extends CrudAppController
             $jsonpoint['properties']['adress']=$point->Stadt;
             //String, der an "Description" weitergegeben werden soll (Adressdaten fett, Beshreibung kursiv)
             $descriptionstring='**'.$point->Strasse.' '.$point->Nr.', '.$point->PLZ.' '.$point->Stadt.'**'.' *'.$point->Beschreibung.'*';
+            //$descriptionstring+=
             $jsonpoint['properties']['description'] = $descriptionstring;
             $jsonpoint['geometry']=[];
 
