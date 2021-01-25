@@ -142,7 +142,7 @@ class UsersController extends CrudAppController{
     {    	
         $action = $this->Crud->action();
         $action->config('scaffold.fields_blacklist', ['id', 'password', 'token']);
-        $action->config('scaffold.actions', ['activate', 'edit', 'view', 'delete']);
+        $action->config('scaffold.actions', ['activate', 'view', 'delete']);
         return $this->Crud->execute();
     }
     
@@ -183,11 +183,10 @@ class UsersController extends CrudAppController{
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
-    {
+    public function edit($id = null){
         return $this->Crud->execute();
     }
-
+    
     /**
      * Delete method
      *

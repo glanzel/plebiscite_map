@@ -21,7 +21,7 @@ class OrteController extends CrudAppController
 		$this->Crud->mapAction('indexJson', 'Crud.Index'); //TODO: Warum muss das so?
 		$this->Crud->mapAction('testam', 'Crud.Index'); //TODO: Warum muss das so?
 		
-		$this->Auth->allow(['view','umap_json', 'add', 'index', 'indexJson', 'umapJson']); //TODO: Benutzten wenn es eine Benutzerverwaltung gibt.
+		$this->Auth->allow(['view','umap_json', 'add', 'edit', 'indexJson', 'umapJson']); //TODO: Benutzten wenn es eine Benutzerverwaltung gibt.
 	}
 
 
@@ -33,13 +33,43 @@ class OrteController extends CrudAppController
 	public function indexJson(){
 	    //debug($action);
 	    return $this->Crud->execute();
-	    	    
 	}
 	
     public function index(){
         // Your customization and configuration changes here
         
 		$action = $this->Crud->action();
+		//debug($this->Auth->user('bezirk'));
+		$myBezirk = $this->Auth->user('bezirk');
+		$this->Crud->action()->setConfig('scaffold.index_finder_scopes', [
+		    [
+		        'title' => __('All'),
+		        'finder' => 'alle',
+		    ],
+		    [
+		        'title' => __('Active'),
+		        'finder' => 'active',
+		    ],
+		    [
+		        'title' => __('Inactive'),
+		        'finder' => 'inactive',
+		    ],
+		    [
+		        'title' => __('BezirkActive'),
+		        'finder' => ['myActive' => ["bezirk" => $myBezirk]]
+		    ],
+		    [
+		        'title' => __('BezirkInactive'),
+		        'finder' => ['myInactive' => ["bezirk" => $myBezirk]],
+		    ],
+		]);
+		
+		if (! empty ($this->request->getQuery('finder'))) {
+    		$this->Crud->action()->config('findMethod', $this->request->getQuery('finder'));
+		}else{
+		    $this->Crud->action()->config('findMethod', 'alle');
+		}
+		
 		$action->config('scaffold.fields_blacklist', ['id','Details', 'Details_intern', 'Breitengrad']);
 		$action->config('scaffold.actions', ['edit', 'view', 'delete']);
 		$action->setConfig('scaffold.field_settings', [
@@ -58,8 +88,9 @@ class OrteController extends CrudAppController
 		         ]
 		         
 		]);
-        return $this->Crud->execute();
+		return $this->Crud->execute();
     }
+    
     function geocode($id){
         $this->viewBuilder()->setClassName('\Cake\View\View'); //um crud wieder auszuschalten
         $point=$this->Orte->get($id);
@@ -99,7 +130,7 @@ class OrteController extends CrudAppController
 	
 	public function add(){
 		$action = $this->Crud->action();
-		$action->config('scaffold.fields_blacklist', ['Details', 'Details_intern', 'Laengengrad', 'Breitengrad', 'active', 'Kategorie', 'created']);
+		$action->config('scaffold.fields_blacklist', ['Bezirk', 'Details', 'Details_intern', 'Laengengrad', 'Breitengrad', 'active', 'Kategorie', 'created']);
 		$action->config('scaffold.actions', []);
 		$action->setConfig('scaffold.field_settings', [
 		    'Email' => [
@@ -142,13 +173,16 @@ class OrteController extends CrudAppController
 	
 	
 	protected function _sendAddMail($point){
-	    $email=new \Cake\Mailer\Email('default');
-	    $email->to($point->Email);
-	    $email->setSubject('Dein Sammelpunkt');
-	    $email->setViewVars(['point' => $point]);
-	    $email->viewBuilder()->setTemplate('add_point');
-	    //debug($email);
-	    $email->send();
+	    //debug($point->Email);
+	    if(! empty($point->Email)){
+    	    $email=new \Cake\Mailer\Email('default');
+    	    $email->to($point->Email);
+    	    $email->setSubject('Dein Sammelpunkt');
+    	    $email->setViewVars(['point' => $point]);
+    	    $email->viewBuilder()->setTemplate('add_point');
+    	    //debug($email);
+    	    $email->send();
+	    }
 	}
 	
          

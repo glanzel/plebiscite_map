@@ -203,3 +203,29 @@ Type::map('json', 'Cake\Database\Type\JsonType');
 //Inflector::rules('irregular', ['red' => 'redlings']);
 //Inflector::rules('uninflected', ['dontinflectme']);
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
+
+
+Configure::write('Bezirke', [ "Mitte"=>"Mitte",
+    "Tiergarten"=>"Tiergarten",
+    "Wedding"=>"Wedding",
+    "Prenzlauer Berg"=>"Prenzlauer Berg",
+    "Friedrichshain"=>"Friedrichshain",
+    "Kreuzberg"=>"Kreuzberg",
+    "Charlottenburg"=>"Charlottenburg",
+    "Spandau"=>"Spandau",
+    "Wilmersdorf"=>"Wilmersdorf",
+    "Zehlendorf"=>"Zehlendorf",
+    "Schöneberg"=>"Schöneberg",
+    "Steglitz"=>"Steglitz",
+    "Tempelhof"=>"Tempelhof",
+    "Neukölln"=>"Neukölln",
+    "Treptow"=>"Treptow",
+    "Köpenick"=>"Köpenick",
+    "Lichtenberg"=>"Lichtenberg",
+    "Weißensee"=>"Weißensee",
+    "Pankow"=>"Pankow",
+    "Reinickendorf"=>"Reinickendorf",
+    "Marzahn"=>"Marzahn",
+    "Hohenschönhausen"=>"Hohenschönhausen",
+    "Hellersdorf"=>"Hellersdorf"]);
+

@@ -39,8 +39,9 @@ class AppController extends Controller{
         
         //$this->Crud->action()->config('scaffold.utility_navigation', $menu);
     }
-    
+
     public function getMenu($user){
+        $id = $this->Auth->user('id');
         $menu = [
             new MenuItem(
                 'Ort+',
@@ -60,6 +61,7 @@ class AppController extends Controller{
                 'Register',
                 ['controller' => 'Users', 'action' => 'register']
                 )];
+        
         $inMenu = [
             new MenuItem(
                 'Orte',
@@ -78,6 +80,7 @@ class AppController extends Controller{
                 'Benutzer',
                 ['controller' => 'Users', 'action' => 'index']
                 ),
+/*
             new MenuItem(
                 'Termin+',
                 ['controller' => 'Termine', 'action' => 'add']
@@ -86,6 +89,12 @@ class AppController extends Controller{
                 'Termine',
                 ['controller' => 'Termine', 'action' => 'index']
                 ),
+*/
+            new MenuItem(
+                'Account',
+                ['controller' => 'Users', 'action' => 'edit', $id]
+                ),
+            
             new MenuItem(
                 'Log Out',
                 ['controller' => 'Users', 'action' => 'logout']

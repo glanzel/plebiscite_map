@@ -21,6 +21,7 @@ trait FindMethodTrait
         if ($method === null) {
             return $this->getConfig('findMethod');
         }
+        debug("hello findMEtho");
 
         return $this->setConfig('findMethod', $method);
     }
@@ -39,7 +40,6 @@ trait FindMethodTrait
             $options = (array)current($finder);
             $finder = key($finder);
         }
-
         return [$finder, $options];
     }
 
@@ -63,7 +63,7 @@ trait FindMethodTrait
             'repository' => $repository,
             'query' => $query
         ]);
-
+        
         $this->_trigger('beforeFind', $subject);
         $entity = $subject->query->first();
 

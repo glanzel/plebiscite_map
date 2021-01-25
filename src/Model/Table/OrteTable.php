@@ -28,7 +28,37 @@ class OrteTable extends PointsTable{
 		//debug($entity);
 		return parent::save($entity, $options);
 	}
+	
+	public function findAlle(Query $query, array $options){
+	    return $query->find('ordered');
+	}
+	
+	public function findActive(Query $query, array $options){
+	    $query->where([$this->aliasField('active') => true])->find('ordered');
+	    return $query;
+	}
+	
+	public function findInactive(Query $query, array $options){
+	    $query->where([$this->aliasField('active') => false])->find('ordered')->find('ordered');
+	    return $query;
+	}
 
+	public function findMyActive(Query $query, array $options){
+	    $query->where([$this->aliasField('active') => true, $this->aliasField('Bezirk') => $options['bezirk']])->find('ordered');
+	    return $query;
+	}
+	
+	public function findMyInactive(Query $query, array $options){
+	    //debug($options);
+	    $query->where([$this->aliasField('active') => false, $this->aliasField('Bezirk') => $options['bezirk']])->find('ordered');
+	    return $query;
+	}
+	
+	public function findOrdered(Query $query, $options) {
+	    return $query->order([
+	        $this->alias() . '.created' => 'DESC'
+	    ]);
+	}
 
     /**
      * Default validation rules.
@@ -52,14 +82,7 @@ class OrteTable extends PointsTable{
             ->maxLength('Strasse', 200)
             ->requirePresence('Strasse', 'create')
             ->notEmptyString('Strasse');
-        
-        $validator
-            ->scalar('Email')
-            ->maxLength('Email', 200)
-            ->requirePresence('Email', 'create')
-            ->notEmptyString('Email');
-            
-            
+                     
         $validator
             ->scalar('Nr')
             ->maxLength('Nr', 10)
