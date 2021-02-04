@@ -6,6 +6,9 @@ $this->extend('form'); //was bedeutet der parameter
 $this->start('form.after_create');
 echo $this->Form->label("Bezirk");
 echo $this->Form->select('Bezirk', Configure::read('Bezirke'));
+echo $this->Form->label("Einwilligung zur Veröffentlichung");
+echo $this->Form->select('einwilligung', [ 0=>'nein', 1=> 'ja']);
+echo "<br><br>";
 $this->end();
 
 
@@ -18,6 +21,7 @@ echo $this->Form->control('Details.Kontakt_Ort', ['value' => $orte->Details['Kon
 echo $this->Form->control('Details.Kontakt_Kiezteam', ['value' => $orte->Details['Kontakt_Kiezteam']]);
 echo "intern<br>";
 echo $this->Form->control('Details_intern.Treffpunkt', ['value' => $orte->Details_intern['Treffpunkt']] );
+echo $this->Form->control('Details_intern.Einwilligung_Details', ['value' => $orte->Details_intern['Einwilligung_Details']]);
 
 //debug($orte->Details['oeffnungszeiten']);
 

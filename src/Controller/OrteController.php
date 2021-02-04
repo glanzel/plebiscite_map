@@ -70,7 +70,7 @@ class OrteController extends CrudAppController
 		    $this->Crud->action()->config('findMethod', 'alle');
 		}
 		
-		$action->config('scaffold.fields_blacklist', ['id','Details', 'Details_intern', 'Breitengrad']);
+		$action->config('scaffold.fields_blacklist', ['id','Details', 'Details_intern', 'Beschreibung', 'Breitengrad']);
 		$action->config('scaffold.actions', ['edit', 'view', 'delete']);
 		$action->setConfig('scaffold.field_settings', [
 		    'active' => [
@@ -79,6 +79,12 @@ class OrteController extends CrudAppController
 		        return $View->Html->link($yesno[$value], ['action' => 'deactivate', $entity->id],['escape' => false]);
 		        }
 		     ],
+		     'einwilligung' => [
+		         'formatter' => function ($name, $value, $entity, $options, $View) {
+		         $yesno = [0 => '<span class="label label-danger">No</span>', 1 => '<span class="label label-success">Yes</span>'];
+		         return $View->Html->link($yesno[$value], ['action' => 'deactivate', $entity->id],['escape' => false]);
+		         }
+		         ],
 		     'Laengengrad' => [
 		         'formatter' => function ($name, $value, $entity, $options, $View) {
 		         $isset = empty($value) ? 0 : 1;
@@ -130,7 +136,7 @@ class OrteController extends CrudAppController
 	
 	public function add(){
 		$action = $this->Crud->action();
-		$action->config('scaffold.fields_blacklist', ['Bezirk', 'Details', 'Details_intern', 'Laengengrad', 'Breitengrad', 'active', 'Kategorie', 'created']);
+		$action->config('scaffold.fields_blacklist', ['Bezirk', 'Details', 'Details_intern', 'Laengengrad', 'Breitengrad', 'active', 'Kategorie', 'created', 'einwilligung']);
 		$action->config('scaffold.actions', []);
 		$action->setConfig('scaffold.field_settings', [
 		    'Email' => [
