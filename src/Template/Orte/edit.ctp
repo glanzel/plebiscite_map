@@ -21,7 +21,9 @@ echo $this->Form->control('Details.Kontakt_Ort', ['value' => $orte->Details['Kon
 echo $this->Form->control('Details.Kontakt_Kiezteam', ['value' => $orte->Details['Kontakt_Kiezteam']]);
 echo "intern<br>";
 echo $this->Form->control('Details_intern.Treffpunkt', ['value' => $orte->Details_intern['Treffpunkt']] );
-echo $this->Form->control('Details_intern.Einwilligung_Details', ['value' => $orte->Details_intern['Einwilligung_Details']]);
+$einwilligungDetails = isset($orte->Details_intern['Einwilligung_Details']) ? $orte->Details_intern['Einwilligung_Details'] : Null;
+
+echo $this->Form->control('Details_intern.Einwilligung_Details', ['value' => $einwilligungDetails]);
 
 //debug($orte->Details['oeffnungszeiten']);
 
