@@ -20,6 +20,7 @@ class OrteController extends CrudAppController
 		$this->Crud->mapAction('geocode', 'Crud.View'); 		//TODO: Warum muss das so?
 		$this->Crud->mapAction('indexJson', 'Crud.Index'); //TODO: Warum muss das so?
 		$this->Crud->mapAction('testam', 'Crud.Index'); //TODO: Warum muss das so?
+		$this->Crud->mapAction('eingewilligt', 'Crud.Index'); //TODO: Warum muss das so?
 		
 		$this->Auth->allow(['view','umap_json', 'add', 'edit', 'indexJson', 'umapJson']); //TODO: Benutzten wenn es eine Benutzerverwaltung gibt.
 	}
@@ -82,7 +83,7 @@ class OrteController extends CrudAppController
 		     'einwilligung' => [
 		         'formatter' => function ($name, $value, $entity, $options, $View) {
 		         $yesno = [0 => '<span class="label label-danger">No</span>', 1 => '<span class="label label-success">Yes</span>'];
-		         return $View->Html->link($yesno[$value], ['action' => 'deactivate', $entity->id],['escape' => false]);
+		         return $View->Html->link($yesno[$value], ['action' => 'eingewilligt', $entity->id],['escape' => false]);
 		         }
 		         ],
 		     'Laengengrad' => [
@@ -123,6 +124,17 @@ class OrteController extends CrudAppController
         $this->Orte->save($point);
         $this->redirect(['action' => 'index']);
     }
+    
+    public function eingewilligt($id){
+        $point=$this->Orte->get($id);
+        if($point->einwilligung == '0') $point->einwilligung = '1';
+        else $point->einwilligung = '0';
+        $this->Orte->save($point);
+        $this->redirect(['action' => 'index']);
+    }
+    
+    
+    
     
 	public function view(){
     	$action = $this->Crud->action();
