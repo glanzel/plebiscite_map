@@ -205,7 +205,8 @@ Type::map('json', 'Cake\Database\Type\JsonType');
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
 
 
-Configure::write('Bezirke', [ "Mitte"=>"Mitte",
+Configure::write('Bezirke', [ "-", 
+    "Mitte"=>"Mitte",
     "Tiergarten"=>"Tiergarten",
     "Wedding"=>"Wedding",
     "Prenzlauer Berg"=>"Prenzlauer Berg",

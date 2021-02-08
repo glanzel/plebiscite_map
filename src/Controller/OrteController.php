@@ -215,7 +215,7 @@ class OrteController extends CrudAppController
 	    
 	    $action = $this->Crud->action();
 	    $action->config('scaffold.actions', []);
-	    $action->config('scaffold.fields_blacklist', ['Bezirk', 'Details', 'Details_intern', 'Laengengrad', 'Breitengrad', 'active', 'Kategorie', 'created']);
+	    $action->config('scaffold.fields_blacklist', ['Bezirk', 'Details', 'Details_intern', 'Laengengrad', 'Breitengrad', 'active', 'Kategorie', 'created', 'einwilligung']);
 	    return $this->Crud->execute();
 	    
 	    
