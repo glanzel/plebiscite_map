@@ -1,10 +1,13 @@
 
 <?php
+
 use Cake\Core\Configure;
 $this->extend('form'); //was bedeutet der parameter
 $this->start('form.after_create');
+if($embedded) echo $this->Form->hidden('_done', ['value' => true]);
+
 echo $this->Form->label("Bezirk");
-echo $this->Form->select('Bezirk', Configure::read('Bezirke'));
+echo $this->Form->select('Bezirk', Configure::read('Bezirke'),['value' => $bezirk]);
 echo $this->Form->label("Einwilligung zur Veröffentlichung");
 echo $this->Form->select('einwilligung', [ 0=>'nein', 1=> 'ja']);
 echo "<br><br>";

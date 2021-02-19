@@ -15,6 +15,7 @@ class OrteController extends CrudAppController
 	public function initialize(){
 		parent::initialize();
 		//$this->Crud->mapAction('testam', 'CrudUsers.Logout'); 		//TODO: Warum muss das so?
+		$this->Crud->mapAction('done', 'Crud.View'); 		//TODO: Warum muss das so?
 		$this->Crud->mapAction('umap_json', 'Crud.View'); 		//TODO: Warum muss das so?
 		$this->Crud->mapAction('deactivate', 'Crud.View'); 		//TODO: Warum muss das so?
 		$this->Crud->mapAction('geocode', 'Crud.View'); 		//TODO: Warum muss das so?
@@ -22,13 +23,23 @@ class OrteController extends CrudAppController
 		$this->Crud->mapAction('testam', 'Crud.Index'); //TODO: Warum muss das so?
 		$this->Crud->mapAction('eingewilligt', 'Crud.Index'); //TODO: Warum muss das so?
 		
-		$this->Auth->allow(['view','umap_json', 'add', 'edit', 'indexJson', 'umapJson']); //TODO: Benutzten wenn es eine Benutzerverwaltung gibt.
+		$this->Auth->allow(['done','view','umap_json', 'add', 'edit', 'indexJson', 'umapJson']); //TODO: Benutzten wenn es eine Benutzerverwaltung gibt.
 	}
 
 
 	public function beforeFilter(\Cake\Event\Event $event){
 		//$this->Crud->disable(['umap_json']).
-		parent::beforeFilter($event);
+	    $this->Crud->addListener('Crud.Redirect');
+	    $this->Crud->action()->redirectConfig('done',
+	        [
+	            'reader' => 'request.data',    // Any reader from the list above
+	            'key' => '_done',              // The key to check for, passed to the reader
+	            'url' => [                     // The url to redirect to
+	                'action' => 'done',        // The final url will be '/view/$id'
+	            ]
+	        ]
+	        );
+	    parent::beforeFilter($event);
 	}
 	
 	public function indexJson(){
@@ -133,9 +144,7 @@ class OrteController extends CrudAppController
         $this->redirect(['action' => 'index']);
     }
     
-    
-    
-    
+   
 	public function view(){
     	$action = $this->Crud->action();
 		$action->config('scaffold.field_settings', [
@@ -146,21 +155,28 @@ class OrteController extends CrudAppController
         return $this->Crud->execute();
     }     
 	
-	public function add(){
+	public function add($embedded = false){
+	    if($embedded){ 
+	        $this->viewBuilder()->setLayout('content_only');
+	    }
+	    $this->set('embedded', $embedded);
 		$action = $this->Crud->action();
-		$action->config('scaffold.fields_blacklist', ['Bezirk', 'Details', 'Details_intern', 'Laengengrad', 'Breitengrad', 'active', 'Kategorie', 'created', 'einwilligung']);
+		$action->config('scaffold.fields_blacklist', [ 'Bezirk', 'Details', 'Details_intern', 'Laengengrad', 'Breitengrad', 'active', 'Kategorie', 'created', 'einwilligung']);
 		$action->config('scaffold.actions', []);
+		$emailValue = $this->Auth->user('id') ? $this->Auth->user('email') : ''; 
+		if($this->Auth->user('bezirk')) $this->set('bezirk', $this->Auth->user('bezirk'));
+		else $this->set('bezirk', '');
 		$action->setConfig('scaffold.field_settings', [
 		    'Email' => [
-		       'label' => "Email (Wir schicken dir einen Link an deine Email-Adresse, unter dem du den Ort ansehen kannst)"
-		    ]
+		       'label' => "Email (Wir schicken dir einen Link an deine Email-Adresse, unter dem du den Ort ansehen kannst)",
+		        'value' => $emailValue
+		    ],
+		    'Stadt' => ['value' => "Berlin"]
 		]);
-		
-		
     	$this->Crud->on('beforeSave', [$this, '_beforeSave']); //um irgendwas zu ändern
     	$this->Crud->on('afterSave', [$this, '_afterSave']); //um irgendwas zu ändern
     	
-        $this->Crud->execute();
+        $erg = $this->Crud->execute();
     }
     
     public function _beforeSave(\Cake\Event\Event $event){
@@ -186,7 +202,6 @@ class OrteController extends CrudAppController
 	public function _afterSave(\Cake\Event\Event $event){
 	    $point = $event->getSubject()->entity;
 	    $this->_sendAddMail($point);
-	    
 	}
 	
 	
@@ -310,6 +325,11 @@ class OrteController extends CrudAppController
         $point = $this->Orte->get($id);
         debug($point);
         $this->_sendAddMail($point);
+    }
+    
+    public function done(){
+        $this->viewBuilder()->setClassName('\Cake\View\View'); //um crud wieder auszuschalten
+        $this->viewBuilder()->setLayout('content_only');
     }
     
 }
