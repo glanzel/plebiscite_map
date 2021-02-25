@@ -259,12 +259,12 @@ class OrteController extends CrudAppController
             $jsonpoint['properties']['PLZ']=$point->PLZ;
             $jsonpoint['properties']['adress']=$point->Stadt;
             //String, der an "Description" weitergegeben werden soll (Adressdaten fett, Beshreibung kursiv)
-            $descriptionstring='**'.$point->Strasse.' '.$point->Nr.', '.$point->PLZ.' '.$point->Stadt.'**'.' *'.$point->Beschreibung.'*';
+            $descriptionstring='**'.$point->Strasse.' '.$point->Nr.', '.$point->PLZ.' '.$point->Stadt.'**'." \n*".$point->Beschreibung."*";
             
-            if(isset($point->Details['oeffnungszeiten'])) $descriptionstring.= ' | '.$point->Details['oeffnungszeiten'];
-            if(isset($point->Details['Listenabgabe']))   $descriptionstring.= ' | '.' Listen abgeben:'.$point->Details['Listenabgabe'];
+            if(isset($point->Details['oeffnungszeiten'])) $descriptionstring.= " \n".$point->Details['oeffnungszeiten'];
+            if(isset($point->Details['Listenabgabe']))   $descriptionstring.= " \nListen abgeben:".$point->Details['Listenabgabe'];
             //if(isset($point->Details['Kontakt_Ort']))   $descriptionstring.=  ', Ort_Kontakt:'.$point->Details['Kontakt_Ort'];
-            if(isset($point->Details['Kontakt_Kiezteam']))   $descriptionstring.=  " |\n Kiezteam_Kontakt: ".$point->Details['Kontakt_Kiezteam'];
+            if(isset($point->Details['Kontakt_Kiezteam']))   $descriptionstring.=  " \nKiezteam_Kontakt: ".$point->Details['Kontakt_Kiezteam'];
             
             
             $jsonpoint['properties']['description'] = $descriptionstring;
