@@ -17,11 +17,11 @@ $this->start('form.before_buttons');
 echo "details<br>";
 echo $this->Form->control('Details.oeffnungszeiten');
 echo $this->Form->control('Details.Listenabgabe');
-echo $this->Form->control('Details.Kontakt_Ort');
 echo $this->Form->control('Details.Kontakt_Kiezteam');
 echo "intern<br>";
+echo $this->Form->control('Details_intern.Kontakt_Ort');
 echo $this->Form->control('Details_intern.Treffpunkt');
-echo $this->Form->control('Details_intern.Einwilligung_Details');
+echo $this->Form->control('Details_intern.Einwilligung_Details', ['label' => "Einwilligung Details (Name der Person, welche die Einwilligung zur Veröffentlichung eingeholt hat/ Datum)"]);
 
 $this->end()
 
