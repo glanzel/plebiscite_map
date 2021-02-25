@@ -261,10 +261,10 @@ class OrteController extends CrudAppController
             //String, der an "Description" weitergegeben werden soll (Adressdaten fett, Beshreibung kursiv)
             $descriptionstring='**'.$point->Strasse.' '.$point->Nr.', '.$point->PLZ.' '.$point->Stadt.'**'.' *'.$point->Beschreibung.'*';
             
-            if(isset($point->Details['oeffnungszeiten'])) $descriptionstring.= $point->Details['oeffnungszeiten'];
-            if(isset($point->Details['Listenabgabe']))   $descriptionstring.= ' Listen abgeben:'.$point->Details['Listenabgabe'];
+            if(isset($point->Details['oeffnungszeiten'])) $descriptionstring.= ' | '.$point->Details['oeffnungszeiten'];
+            if(isset($point->Details['Listenabgabe']))   $descriptionstring.= ' | '.' Listen abgeben:'.$point->Details['Listenabgabe'];
             //if(isset($point->Details['Kontakt_Ort']))   $descriptionstring.=  ', Ort_Kontakt:'.$point->Details['Kontakt_Ort'];
-            if(isset($point->Details['Kontakt_Kiezteam']))   $descriptionstring.=  ', Kiezteam_Kontakt: '.$point->Details['Kontakt_Kiezteam'];
+            if(isset($point->Details['Kontakt_Kiezteam']))   $descriptionstring.=  ' /n/r\n\r<br> Kiezteam_Kontakt: '.$point->Details['Kontakt_Kiezteam'];
             
             
             $jsonpoint['properties']['description'] = $descriptionstring;
