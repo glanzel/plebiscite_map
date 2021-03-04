@@ -375,6 +375,13 @@ h6 {
 		werden.</span>
 </p>
 <p class="c1">
+	<span class="c2 c0">Wähle dazu am besten den Button BezirkInactive um dir nur die Ort anzeigen zu lassen die in deinem Bezirk und inactiv sind.
+	Damit das klappt muss du in deinem Account einen Bezirk ausgewählt haben. (Du kannst ein bsichen kompliziert den Bezirk auch von hand wechseln indem du nach klick Auf einen der Bezirk(In)active Buttons in der url einen anderen Bezirk reinschreibst)
+	</span>
+</p>
+	
+
+<p class="c1">
 	<span class="c2 c0">In der Liste &bdquo;Orte&ldquo; findest du alle
 		eingetragenen Orte. Ver&ouml;ffentlicht wird der Ort wenn in der
 		Kategorie &bdquo;Active&ldquo; der Button angeklickt wird, und der

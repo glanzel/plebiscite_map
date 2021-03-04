@@ -7,7 +7,7 @@ $this->start('form.after_create');
 echo $this->Form->label("Bezirk");
 echo $this->Form->select('Bezirk', Configure::read('Bezirke'), ['value' => $orte->Bezirk]);
 echo $this->Form->label("Einwilligung zur Veröffentlichung");
-echo $this->Form->select('einwilligung', [ 0=>'nein', 1=> 'ja']);
+echo $this->Form->select('einwilligung', [ 0=>'nein', 1=> 'ja'], ['value' => $orte->einwilligung]);
 echo "<br><br>";
 $this->end();
 

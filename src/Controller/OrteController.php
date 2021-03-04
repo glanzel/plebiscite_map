@@ -26,7 +26,6 @@ class OrteController extends CrudAppController
 		$this->Auth->allow(['done','view','umap_json', 'add', 'edit', 'indexJson', 'umapJson']); //TODO: Benutzten wenn es eine Benutzerverwaltung gibt.
 	}
 
-
 	public function beforeFilter(\Cake\Event\Event $event){
 		//$this->Crud->disable(['umap_json']).
 	    $this->Crud->addListener('Crud.Redirect');
@@ -50,13 +49,15 @@ class OrteController extends CrudAppController
     public function index(){
         // Your customization and configuration changes here
         
+        
 		$action = $this->Crud->action();
 		//debug($this->Auth->user('bezirk'));
 		$myBezirk = $this->Auth->user('bezirk');
+
 		$this->Crud->action()->setConfig('scaffold.index_finder_scopes', [
 		    [
 		        'title' => __('All'),
-		        'finder' => 'alle',
+		        'finder' => false,
 		    ],
 		    [
 		        'title' => __('Active'),
@@ -78,30 +79,28 @@ class OrteController extends CrudAppController
 		
 		if (! empty ($this->request->getQuery('finder'))) {
     		$this->Crud->action()->config('findMethod', $this->request->getQuery('finder'));
-		}else{
-		    $this->Crud->action()->config('findMethod', 'alle');
 		}
 		
 		$action->config('scaffold.fields_blacklist', ['id','Details', 'Details_intern', 'Beschreibung', 'Breitengrad']);
-		$action->config('scaffold.actions', ['edit', 'view', 'delete']);
+		$action->config('scaffold.actions', ['edit' => [ 'url' => ['action' => 'edit', '?' => $this->request->getQuery()]], 'view' => [ 'url' => ['action' => 'view', '?' => $this->request->getQuery()]], 'delete']);
 		$action->setConfig('scaffold.field_settings', [
 		    'active' => [
 		        'formatter' => function ($name, $value, $entity, $options, $View) {
 		        $yesno = [0 => '<span class="label label-danger">No</span>', 1 => '<span class="label label-success">Yes</span>'];
-		        return $View->Html->link($yesno[$value], ['action' => 'deactivate', $entity->id],['escape' => false]);
+		        return $View->Html->link($yesno[$value], ['action' => 'deactivate', $entity->id, '?' => $this->request->getQuery()],['escape' => false]);
 		        }
 		     ],
 		     'einwilligung' => [
 		         'formatter' => function ($name, $value, $entity, $options, $View) {
 		         $yesno = [0 => '<span class="label label-danger">No</span>', 1 => '<span class="label label-success">Yes</span>'];
-		         return $View->Html->link($yesno[$value], ['action' => 'eingewilligt', $entity->id],['escape' => false]);
+		         return $View->Html->link($yesno[$value], ['action' => 'eingewilligt', $entity->id, '?' => $this->request->getQuery()],['escape' => false]);
 		         }
 		         ],
 		     'Laengengrad' => [
 		         'formatter' => function ($name, $value, $entity, $options, $View) {
 		         $isset = empty($value) ? 0 : 1;
 		         $yesno2 = [0 => '<span class="label label-danger">No</span>', 1 => '<span class="label label-success">Yes</span>'];
-		         return $View->Html->link($yesno2[$isset], ['action' => 'geocode', $entity->id],['escape' => false]);
+		         return $View->Html->link($yesno2[$isset], ['action' => 'geocode', $entity->id, '?' => $this->request->getQuery()],['escape' => false]);
 		         }
 		         ]
 		         
@@ -115,7 +114,7 @@ class OrteController extends CrudAppController
         $point = $this->Orte->geocodePoint($point);
         if($point) $this->Orte->save($point);
         else $this->Flash->error(__('Adresse konnte nicht gefunden werden. Geocoordinaten wurde nicht gespeichert.'));
-        $this->redirect(['action' => 'index']);
+        $this->redirect(['action' => 'index', '?' => $this->request->getQuery()]);
     }
 
     // activates aswell
@@ -133,7 +132,7 @@ class OrteController extends CrudAppController
         }
         else $point->active='0';
         $this->Orte->save($point);
-        $this->redirect(['action' => 'index']);
+        $this->redirect(['action' => 'index', '?' => $this->request->getQuery()]);
     }
     
     public function eingewilligt($id){
@@ -141,7 +140,7 @@ class OrteController extends CrudAppController
         if($point->einwilligung == '0') $point->einwilligung = '1';
         else $point->einwilligung = '0';
         $this->Orte->save($point);
-        $this->redirect(['action' => 'index']);
+        $this->redirect(['action' => 'index', '?' => $this->request->getQuery()]);
     }
     
    
@@ -231,11 +230,16 @@ class OrteController extends CrudAppController
 	    $action = $this->Crud->action();
 	    $action->config('scaffold.actions', []);
 	    $action->config('scaffold.fields_blacklist', ['Bezirk', 'Details', 'Details_intern', 'Laengengrad', 'Breitengrad', 'active', 'Kategorie', 'created', 'einwilligung']);
+	    $this->Crud->on('afterSave', [$this, '_edit_afterSave']); //um irgendwas zu ändern
+	    
 	    return $this->Crud->execute();
-	    
-	    
     }     
-
+    public function _edit_afterSave(){
+        $this->redirect(['action' => 'index', '?' => $this->request->getQuery()]);
+    }
+    
+    
+    
     public function delete(){
         return $this->Crud->execute();
     }

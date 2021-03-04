@@ -24,41 +24,45 @@ class OrteTable extends PointsTable{
         return $schema;
     }
     
+    public function beforeFind ($event, $query, $options, $primary)
+    {
+        $order = $query->clause('order');
+        if ($order === null || !count($order)) {
+            $query->order( [$this->alias() . '.created' => 'desc'] );
+        }
+    }
+    
+    
     public function save(\Cake\Datasource\EntityInterface $entity, $options = Array()){
 		//debug($entity);
 		return parent::save($entity, $options);
 	}
 	
 	public function findAlle(Query $query, array $options){
-	    return $query->find('ordered');
+	    return $query;
 	}
 	
 	public function findActive(Query $query, array $options){
-	    $query->where([$this->aliasField('active') => 1])->find('ordered');
+	    $query->where([$this->aliasField('active') => 1]);
 	    return $query;
 	}
 	
 	public function findInactive(Query $query, array $options){
-	    $query->where([$this->aliasField('active') => 0])->find('ordered')->find('ordered');
+	    $query->where([$this->aliasField('active') => 0]);
 	    return $query;
 	}
 
 	public function findMyActive(Query $query, array $options){
-	    $query->where([$this->aliasField('active') => 1, $this->aliasField('Bezirk') => $options['bezirk']])->find('ordered');
+	    $query->where([$this->aliasField('active') => 1, $this->aliasField('Bezirk') => $options['bezirk']]);
 	    return $query;
 	}
 	
 	public function findMyInactive(Query $query, array $options){
 	    //debug($options);
-	    $query->where([$this->aliasField('active') => 0, $this->aliasField('Bezirk') => $options['bezirk']])->find('ordered');
+	    $query->where([$this->aliasField('active') => 0, $this->aliasField('Bezirk') => $options['bezirk']]);
 	    return $query;
 	}
 	
-	public function findOrdered(Query $query, $options) {
-	    return $query->order([
-	        $this->alias() . '.created' => 'DESC'
-	    ]);
-	}
 
     /**
      * Default validation rules.
