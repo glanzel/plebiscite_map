@@ -160,7 +160,7 @@ class OrteController extends CrudAppController
 	    }
 	    $this->set('embedded', $embedded);
 		$action = $this->Crud->action();
-		$action->config('scaffold.fields_blacklist', [ 'Bezirk', 'Details', 'Details_intern', 'Laengengrad', 'Breitengrad', 'active', 'Kategorie', 'created', 'einwilligung']);
+		$action->config('scaffold.fields_blacklist', ['Listenannahme', 'Listenausgabe', 'Bezirk', 'Details', 'Details_intern', 'Laengengrad', 'Breitengrad', 'active', 'Kategorie', 'created', 'einwilligung']);
 		$action->config('scaffold.actions', []);
 		$emailValue = $this->Auth->user('id') ? $this->Auth->user('email') : ''; 
 		if($this->Auth->user('bezirk')) $this->set('bezirk', $this->Auth->user('bezirk'));
@@ -195,6 +195,7 @@ class OrteController extends CrudAppController
 	        //debug($point);
 	    }		
 	    //$this->Log($subject); //Possible Debuging
+	    //debug($point);
 	    return true;
 	}
 	
@@ -229,13 +230,16 @@ class OrteController extends CrudAppController
 	    
 	    $action = $this->Crud->action();
 	    $action->config('scaffold.actions', []);
-	    $action->config('scaffold.fields_blacklist', ['Bezirk', 'Details', 'Details_intern', 'Laengengrad', 'Breitengrad', 'active', 'Kategorie', 'created', 'einwilligung']);
+	    $action->config('scaffold.fields_blacklist', ['Listenannahme', 'Listenausgabe', 'Bezirk', 'Details', 'Details_intern', 'Laengengrad', 'Breitengrad', 'active', 'Kategorie', 'created', 'einwilligung']);
 	    $this->Crud->on('afterSave', [$this, '_edit_afterSave']); //um irgendwas zu ändern
 	    
 	    return $this->Crud->execute();
     }     
-    public function _edit_afterSave(){
-        $this->redirect(['action' => 'index', '?' => $this->request->getQuery()]);
+    public function _edit_afterSave(\Cake\Event\Event $event){
+        $point = $event->getSubject()->entity;
+        debug($point);
+        return false;
+        //$this->redirect(['action' => 'index', '?' => $this->request->getQuery()]);
     }
     
     
@@ -335,5 +339,9 @@ class OrteController extends CrudAppController
         $this->viewBuilder()->setClassName('\Cake\View\View'); //um crud wieder auszuschalten
         $this->viewBuilder()->setLayout('content_only');
     }
+    
+    
+    
+    
     
 }
