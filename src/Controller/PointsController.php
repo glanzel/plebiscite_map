@@ -373,7 +373,7 @@ class PointsController extends AppController
                         //debug(" $point->Name : $point->Strasse scheint listenabgabe == ja zu haben");
                         //debug($point["Details"]["Listenabgabe"]);
                         $this->Points->save($point);
-                    }else if (strtolower($point["Details"]["Listenabgabe"] == "nein")){
+                    }else if (strtolower($point["Details"]["Listenabgabe"]) == "nein"){
                     }else{
                         debug(" $point->Name : $point->Strasse scheint unklare angabe in der listenabgabe zu haben");
                         debug($point["Details"]["Listenabgabe"]);
