@@ -41,10 +41,6 @@ class OrteController extends CrudAppController
 	    parent::beforeFilter($event);
 	}
 	
-	public function indexJson(){
-	    //debug($action);
-	    return $this->Crud->execute();
-	}
 	
     public function index(){
         // Your customization and configuration changes here
@@ -236,10 +232,7 @@ class OrteController extends CrudAppController
 	    return $this->Crud->execute();
     }     
     public function _edit_afterSave(\Cake\Event\Event $event){
-        $point = $event->getSubject()->entity;
-        debug($point);
-        return false;
-        //$this->redirect(['action' => 'index', '?' => $this->request->getQuery()]);
+        $this->redirect(['action' => 'index', '?' => $this->request->getQuery()]);
     }
     
     
@@ -248,9 +241,18 @@ class OrteController extends CrudAppController
         return $this->Crud->execute();
     }
      
-    public function umapJson($kategorie=null){
+    public function umapJson(){
+        return $this->indexJson("**","**","\n");
+
+    }
+
+    public function indexJson($bStart = "<b>", $bEnd = "</b>", $ln = "<br>"){
 		$this->viewBuilder()->setClassName('\Cake\View\View'); //um crud wieder auszuschalten
 		$points=$this->Orte->find()->where(['active' => '1']);
+		$options = $this->request->getQuery();
+		if($options != null){
+		    if(isset($options["listenausgabe"])) $points = $points->where(['listenausgabe' => 1]);
+		}
 		
         $jsonpoints=[];
         $jsonpoints['type']='FeatureCollection';
@@ -266,13 +268,17 @@ class OrteController extends CrudAppController
             $jsonpoint['properties']['Nr']=$point->Nr;
             $jsonpoint['properties']['PLZ']=$point->PLZ;
             $jsonpoint['properties']['adress']=$point->Stadt;
+    
             //String, der an "Description" weitergegeben werden soll (Adressdaten fett, Beshreibung kursiv)
-            $descriptionstring='**'.$point->Strasse.' '.$point->Nr.', '.$point->PLZ.' '.$point->Stadt.'**'." \n*".$point->Beschreibung."*";
+            $descriptionstring=$bStart.$point->Strasse.' '.$point->Nr.', '.$point->PLZ.' '.$point->Stadt.$bEnd." $ln".$point->Beschreibung;
             
-            if(isset($point->Details['oeffnungszeiten'])) $descriptionstring.= " \n".$point->Details['oeffnungszeiten'];
-            if(isset($point->Details['Listenabgabe']) && !empty($point->Details['Listenabgabe']))   $descriptionstring.= " \nListen abgeben:".$point->Details['Listenabgabe'];
+            if(isset($point->Details['oeffnungszeiten'])) $descriptionstring.= " $ln".$point->Details['oeffnungszeiten'];
+            //if(isset($point->Details['Listenabgabe']) && !empty($point->Details['Listenabgabe']))   $descriptionstring.= " \nListen abgeben:".$point->Details['Listenabgabe'];
+            if(!empty($point->Listenannahme))   $descriptionstring.= " $ln"."Listen abgeben:Ja";
+            if(!empty($point->Listenausgabe))   $descriptionstring.= " $ln"."Listen abholen:Ja";
+            
             //if(isset($point->Details['Kontakt_Ort']))   $descriptionstring.=  ', Ort_Kontakt:'.$point->Details['Kontakt_Ort'];
-            if(isset($point->Details['Kontakt_Kiezteam']) && !empty($point->Details['Kontakt_Kiezteam']))   $descriptionstring.=  " \nKiezteam_Kontakt: ".$point->Details['Kontakt_Kiezteam'];
+            if(isset($point->Details['Kontakt_Kiezteam']) && !empty($point->Details['Kontakt_Kiezteam']))   $descriptionstring.=  " $lnKiezteam_Kontakt: ".$point->Details['Kontakt_Kiezteam'];
             
             
             $jsonpoint['properties']['description'] = $descriptionstring;
