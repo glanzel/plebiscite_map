@@ -368,7 +368,7 @@ class PointsController extends AppController
             $points = $this->Points->find();
             foreach($points as $point){
                 if(isset($point["Details"]["Listenabgabe"]) && ! empty($point["Details"]["Listenabgabe"])){
-                    if( strtolower($point["Details"]["Listenabgabe"]) == "ja" ){
+                    if( strtolower($point["Details"]["Listenabgabe"]) == "ja" || strtolower($point["Details"]["Listenabgabe"]) == "vor ort"){
                         $point->Listenannahme = 1;
                         //debug(" $point->Name : $point->Strasse scheint listenabgabe == ja zu haben");
                         //debug($point["Details"]["Listenabgabe"]);
