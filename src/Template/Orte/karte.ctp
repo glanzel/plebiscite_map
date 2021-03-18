@@ -50,7 +50,8 @@ function loadLayer(json_url, marker_icon = '../img/marker.svg'){
     };
     xhr.send();
 }
-layer1_url = 'http://localhost/dwe_map/orte/index_json/<?=$get_query ?>';
+layer1_url = '<?=$host?>/orte/index_json/<?=$get_query ?>';
+console.log(layer1_url);
 loadLayer(layer1_url, '../img/marker.svg');
 loadLayer('https://dwenteignen.party/service/action-export', '../img/marker_yellow.svg');
 

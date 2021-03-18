@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Routing\Router;
 use Crud\Error\Exception\ActionNotConfiguredException;
 
 /**
@@ -357,6 +358,7 @@ class OrteController extends CrudAppController
         $options = $this->request->getQuery();
         $query_string = "?".http_build_query($options);
         $this->set("get_query",$query_string);
+        $this->set("host", Router::url('/', true));
         
     }
     
