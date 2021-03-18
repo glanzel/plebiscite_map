@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Crud\Error\Exception\ActionNotConfiguredException;
 
 /**
  * Points Controller
@@ -15,6 +16,7 @@ class OrteController extends CrudAppController
 	public function initialize(){
 		parent::initialize();
 		//$this->Crud->mapAction('testam', 'CrudUsers.Logout'); 		//TODO: Warum muss das so?
+		//$this->Crud->mapAction('karte', 'Crud.View'); 		//TODO: Warum muss das so?
 		$this->Crud->mapAction('done', 'Crud.View'); 		//TODO: Warum muss das so?
 		$this->Crud->mapAction('umap_json', 'Crud.View'); 		//TODO: Warum muss das so?
 		$this->Crud->mapAction('deactivate', 'Crud.View'); 		//TODO: Warum muss das so?
@@ -28,17 +30,22 @@ class OrteController extends CrudAppController
 
 	public function beforeFilter(\Cake\Event\Event $event){
 		//$this->Crud->disable(['umap_json']).
-	    $this->Crud->addListener('Crud.Redirect');
-	    $this->Crud->action()->redirectConfig('done',
-	        [
-	            'reader' => 'request.data',    // Any reader from the list above
-	            'key' => '_done',              // The key to check for, passed to the reader
-	            'url' => [                     // The url to redirect to
-	                'action' => 'done',        // The final url will be '/view/$id'
-	            ]
-	        ]
-	        );
-	    parent::beforeFilter($event);
+	    
+	    try{
+	        $this->Crud->addListener('Crud.Redirect');
+    	    $this->Crud->action()->redirectConfig('done',
+    	        [
+    	            'reader' => 'request.data',    // Any reader from the list above
+    	            'key' => '_done',              // The key to check for, passed to the reader
+    	            'url' => [                     // The url to redirect to
+    	                'action' => 'done',        // The final url will be '/view/$id'
+    	            ]
+    	        ]
+    	        );
+    	}catch(ActionNotConfiguredException $ex){
+            //mir doch egal
+    	}
+    	parent::beforeFilter($event);
 	}
 	
 	
@@ -344,6 +351,13 @@ class OrteController extends CrudAppController
     public function done(){
         $this->viewBuilder()->setClassName('\Cake\View\View'); //um crud wieder auszuschalten
         $this->viewBuilder()->setLayout('content_only');
+    }
+    
+    public function karte(){
+        $options = $this->request->getQuery();
+        $query_string = "?".http_build_query($options);
+        $this->set("get_query",$query_string);
+        
     }
     
     

@@ -23,7 +23,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 function onEachFeature(feature, layer) {
 	content = "<h4>"+feature.properties.name+"</h4><br>"+feature.properties.description;
 	layer.bindPopup(content);
-	console.log(layer);
+	//console.log(layer);
 }
 
 function loadLayer(json_url, marker_icon = '../img/marker.svg'){
@@ -34,7 +34,7 @@ function loadLayer(json_url, marker_icon = '../img/marker.svg'){
     xhr.onload = function() {
         if (xhr.status !== 200) return
         L.geoJSON(xhr.response, {
-            //onEachFeature: onEachFeature,
+            onEachFeature: onEachFeature,
             pointToLayer: function(feature, latlng){
     
             	var smallIcon = new L.Icon({
@@ -50,7 +50,8 @@ function loadLayer(json_url, marker_icon = '../img/marker.svg'){
     };
     xhr.send();
 }
-loadLayer('http://localhost/dwe_map/orte/index_json', '../img/marker.svg');
+layer1_url = 'http://localhost/dwe_map/orte/index_json/<?=$get_query ?>';
+loadLayer(layer1_url, '../img/marker.svg');
 loadLayer('https://dwenteignen.party/service/action-export', '../img/marker_yellow.svg');
 
 

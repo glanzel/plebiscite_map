@@ -17,6 +17,7 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use \Crud\Controller\ControllerTrait;
+use Crud\Error\Exception\ActionNotConfiguredException;
 use CrudView\Menu\MenuDivider;
 use CrudView\Menu\MenuDropdown;
 use CrudView\Menu\MenuItem;
@@ -45,7 +46,6 @@ class CrudAppController extends AppController
      */
     public function initialize()
     {
-        
             parent::initialize();
             
             
@@ -88,13 +88,17 @@ class CrudAppController extends AppController
              */
             //$this->loadComponent('Security');
             $this->viewBuilder()->setLayout('admin');
-        }
+    }
 
         function beforeFilter(\Cake\Event\Event $event){
-            //debug($this->Crud);
-            if(isset($this->Crud) && $this->Crud->action()->enabled()){
-                $this->Crud->action()->config('scaffold.sidebar_navigation', false);
-                $this->Crud->action()->config('scaffold.utility_navigation', $this->getMenu($this->Auth->user()));
+    
+            try{
+                if(isset($this->Crud) && $this->Crud->action()->enabled()){
+                    $this->Crud->action()->config('scaffold.sidebar_navigation', false);
+                    $this->Crud->action()->config('scaffold.utility_navigation', $this->getMenu($this->Auth->user()));
+                }
+            }catch(ActionNotConfiguredException $ex){
+                //Wenn die action nicht konfiguriert ist => dann soll sie wohl nicht über Crud laufen
             }
             parent::beforeFilter($event);
         }

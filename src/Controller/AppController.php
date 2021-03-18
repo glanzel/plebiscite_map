@@ -64,6 +64,10 @@ class AppController extends Controller{
         
         $inMenu = [
             new MenuItem(
+                'Listenausgabestellen',
+                ['controller' => 'Orte', 'action' => 'karte?listenausgabe=1']
+                ),
+            new MenuItem(
                 'Orte',
                 ['controller' => 'Orte', 'action' => 'index']
                 ),
