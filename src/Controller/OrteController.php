@@ -194,7 +194,7 @@ class OrteController extends CrudAppController
 	        return false;
 	    }
 	    else{
-	        $this->Flash->error(__('Vielen Dank, der Ort wurde erfolgreich registriert. Um auf der Karte zu erscheinen, muss er noch vom zuständigen Kiezteam freigeschaltet werden.'));
+	        $this->Flash->info(__('Vielen Dank, der Ort wurde erfolgreich registriert. Um auf der Karte zu erscheinen, muss er noch vom zuständigen Kiezteam freigeschaltet werden.'));
 	        list ($point->Breitengrad, $point->Laengengrad)=$coordinates;
 	        //debug($point);
 	    }		

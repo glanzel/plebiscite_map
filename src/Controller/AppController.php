@@ -32,13 +32,14 @@ use Cake\Core\Configure;
 class AppController extends Controller{
     
     public function beforeFilter(Event $event){
-        $this->response->header('Access-Control-Allow-Origin','*');
         $menu = $this->getMenu($this->Auth->user());
         $this->set('utilityNavigation', $menu);
         $umap_url = \Cake\Core\Configure::read('umap_url');
         $this->set(compact('umap_url'));
         
         //$this->Crud->action()->config('scaffold.utility_navigation', $menu);
+        //debug("HÄ?");
+        //$this->response->header('Access-Control-Allow-Origin','*');
     }
 
     public function getMenu($user){
