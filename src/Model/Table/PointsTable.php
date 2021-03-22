@@ -52,7 +52,7 @@ class PointsTable extends AppTable
             
     }
     
-     public function geocoding($queryString){
+     public function geocoding($queryString, $bindto_addr_family = "0:0"){
 
         //debug($queryString);
             $queryString = urlencode($queryString);
@@ -61,9 +61,16 @@ class PointsTable extends AppTable
             //debug($urlString);
             $opts = array(
                 'http'=>array(
-                    'header'=>array("Referer: $urlString\r\n")
-                )
+                    'header'=>array("Referer: $urlString\r\n"),
+                    'timeout'=>20,
+                    'method'=>'GET'
+                ),
+                'socket' => array(
+                    'bindto' => $bindto_addr_family
+                ),
             );
+            
+            
             $context = stream_context_create($opts);
             $content = file_get_contents($urlString, false, $context);
             $geoObj =  json_decode($content);
@@ -78,6 +85,56 @@ class PointsTable extends AppTable
             }
 
     }
+    
+    # SPDX-License-Identifier: CC0-1.0
+    
+    function fetch_http_file_contents($url) {
+        $hostname = parse_url($url, PHP_URL_HOST);
+        if ($hostname == FALSE) {
+            return FALSE;
+        }
+        
+        $host_has_ipv6 = FALSE;
+        $host_has_ipv4 = FALSE;
+        $file_response = FALSE;
+        
+        $dns_records = dns_get_record($hostname, DNS_AAAA + DNS_A);
+        
+        foreach ($dns_records as $dns_record) {
+            if (isset($dns_record['type'])) {
+                switch ($dns_record['type']) {
+                    case 'AAAA':
+                        $host_has_ipv6 = TRUE;
+                        break;
+                    case 'A':
+                        $host_has_ipv4 = TRUE;
+                        break;
+                } } }
+                
+                if ($host_has_ipv6 === TRUE) {
+                    $file_response = file_get_intbound_contents($url, '[0]:0');
+                }
+                if ($host_has_ipv4 === TRUE && $file_response == FALSE) {
+                    $file_response = file_get_intbound_contents($url, '0:0');
+                }
+                
+                return $file_response;
+    }
+    
+    function file_get_intbound_contents($url, $bindto_addr_family) {
+        $stream_context = stream_context_create(
+            array(
+                'socket' => array(
+                    'bindto' => $bindto_addr_family
+                ),
+                'http' => array(
+                    'timeout'=>20,
+                    'method'=>'GET'
+                ) ) );
+        
+        return file_get_contents($url, FALSE, $stream_context);
+    }
+    
 
     /**
      * Default validation rules.
